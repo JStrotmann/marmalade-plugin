@@ -1,0 +1,77 @@
+include:
+#include <s3eTypes.h>
+
+#define S3E_MATSDK_STRING_MAX 255
+
+struct s3eMATTracker;
+
+typedef struct MATSDKEventItem
+{
+	char		name[S3E_MATSDK_STRING_MAX];
+	char 		unitPrice[S3E_MATSDK_STRING_MAX];
+	int			quantity;
+	char		revenue[S3E_MATSDK_STRING_MAX];
+	char		attribute1[S3E_MATSDK_STRING_MAX];
+	char		attribute2[S3E_MATSDK_STRING_MAX];
+	char		attribute3[S3E_MATSDK_STRING_MAX];
+	char		attribute4[S3E_MATSDK_STRING_MAX];
+	char		attribute5[S3E_MATSDK_STRING_MAX];
+} MATSDKEventItem;
+
+typedef struct MATArray {
+	void *m_items; // Items in array
+	unsigned int m_count; // number of items
+} MATArray;
+
+functions:
+
+// Main MAT Initializer Method
+void MATStartMobileAppTracker(const char* adId, const char* convKey) run_on_os_thread
+
+// Tracking Methods
+void MATTrackInstall() run_on_os_thread
+void MATTrackUpdate() run_on_os_thread
+void MATTrackInstallWithReferenceId(const char* refId) run_on_os_thread
+void MATTrackActionForEventIdOrName(const char* eventIdOrName, bool isId, const char* refId) run_on_os_thread
+void MATTrackActionForEventIdOrNameItems(const char* eventIdOrName, bool isId, const MATArray* items, const char* refId, const char* revenueAmount, const char* currencyCode, uint8 transactionState, const char* receipt, const char* receiptSignature) run_on_os_thread
+void MATTrackAction(const char* eventIdOrName, bool isId, const char* revenue, const char* currency) run_on_os_thread
+
+// Setter Methods
+void MATSetPackageName(const char* packageName) run_on_os_thread
+void MATSetCurrencyCode(const char* currencyCode) run_on_os_thread
+void MATSetOpenUDID(const char* openUDID) run_on_os_thread
+void MATSetUIID(const char* uiid) run_on_os_thread
+void MATSetUserId(const char* userId) run_on_os_thread
+void MATSetFacebookUserId(const char* userFacebookId) run_on_os_thread
+void MATSetTwitterUserId(const char* userTwitterId) run_on_os_thread
+void MATSetGoogleUserId(const char* userGoogleId) run_on_os_thread
+void MATSetRevenue(const char* revenue) run_on_os_thread
+void MATSetSiteId(const char* siteId) run_on_os_thread
+void MATSetTRUSTeId(const char* tpid) run_on_os_thread
+void MATSetAppAdTracking(bool enable) run_on_os_thread
+void MATSetDelegate(bool enable) run_on_os_thread
+void MATSetJailbroken(bool isJailbroken) run_on_os_thread
+void MATSetShouldAutoDetectJailbroken(bool shouldAutoDetect) run_on_os_thread
+void MATSetMACAddress(const char* mac) run_on_os_thread
+void MATSetODIN1(const char* odin1) run_on_os_thread
+void MATSetUseCookieTracking(bool useCookieTracking) run_on_os_thread
+void MATSetAge(int age) run_on_os_thread
+void MATSetGender(int gender) run_on_os_thread
+void MATSetLocation(const char* latitude, const char* longitude, const char* altitude) run_on_os_thread
+
+// App-to-App Tracking
+void MATStartAppToAppTracking(const char* targetAppId, const char* advertiserId, const char* offerId, const char* publisherId, bool shouldRedirect) run_on_os_thread
+void MATSetRedirectUrl(const char* redirectUrl) run_on_os_thread
+
+// Apple Advertising Identifier and Vendor Identifier
+void MATSetAppleAdvertisingIdentifier(const char* advertiserId) run_on_os_thread
+void MATSetAppleVendorIdentifier(const char* vendorId) run_on_os_thread
+void MATSetShouldAutoGenerateAppleVendorIdentifier(bool shouldAutoGenerate) run_on_os_thread
+void MATSetShouldAutoGenerateAppleAdvertisingIdentifier(bool shouldAutoGenerate) run_on_os_thread
+
+// Debug Methods
+void MATSDKParameters() run_on_os_thread
+void MATSetDebugMode(bool shouldDebug) run_on_os_thread
+void MATSetAllowDuplicates(bool allowDuplicates) run_on_os_thread
+
+append:
