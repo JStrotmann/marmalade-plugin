@@ -124,7 +124,7 @@ void ButtonsRender()
 
     int x = 10;
     int y = 50;
-
+    
     g_SelectedButton = 0;
 
     // draw the buttons
@@ -175,11 +175,12 @@ void ButtonsRender()
         int _w;
         int _x1;
         int textOffset = 0;
-
+        
         // Scale down font size if button contents are too long for screen
         while (true)
         {
             _w = (textWidth * len) + 8;
+            
             _x1 = _x0 + _w;
 
             if (fontScale == 1 || _x1 <= s3eSurfaceGetInt(S3E_SURFACE_WIDTH))

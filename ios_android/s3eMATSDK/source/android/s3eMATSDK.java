@@ -34,46 +34,34 @@ class s3eMATSDK
     
     public void MATStartMobileAppTracker(String adId, String convKey)
     {
-        mat = new MobileAppTracker(LoaderAPI.getActivity(), adId, convKey);
+        MobileAppTracker.init(LoaderAPI.getActivity(), adId, convKey);
+        mat = MobileAppTracker.getInstance();
         mat.setPluginName("marmalade");
     }
-    public void MATSDKParameters()
+    public void MATTrackSession()
     {
-        // no android equivalent in the mat sdk
+        mat.trackSession();
     }
-    public void MATTrackInstall()
+    public void MATTrackSessionWithReferenceId(String refId)
     {
-        mat.trackInstall();
+         mat.trackAction("session", 0, null, refId);
     }
-    public void MATTrackUpdate()
+    public void MATTrackActionForEventIdOrName(String eventIdOrName, String refId)
     {
-        mat.trackUpdate();
-    }
-    public void MATTrackInstallWithReferenceId(String refId)
-    {
-        mat.setRefId(refId);
-        mat.trackInstall();
-    }
-    public void MATTrackActionForEventIdOrName(String eventIdOrName, boolean isId, String refId)
-    {
-        mat.setRefId(refId);
-        mat.trackAction(eventIdOrName);
+        mat.trackAction(eventIdOrName, 0, null, refId);
     }
     
     // items is one or more event item hash maps
-    public void MATTrackActionForEventIdOrNameItems(String eventIdOrName, boolean isId, List<MATEventItem> items, String refId, String revenueAmount, String currencyCode, int transactionState, String receipt, String receiptSignature)
+    public void MATTrackActionForEventIdOrNameItems(String eventIdOrName, List<MATEventItem> items, String refId, String revenueAmount, String currencyCode, int transactionState, String receipt, String receiptSignature)
     {
-        mat.setCurrencyCode(currencyCode);
-        mat.setRefId(refId);
-        mat.setRevenue(Double.parseDouble(revenueAmount));
         if (receiptSignature != null && receiptSignature.length() > 0) {
-            mat.trackAction(eventIdOrName, items, receipt, receiptSignature);
+            mat.trackAction(eventIdOrName, items, Double.parseDouble(revenueAmount), currencyCode, refId, receipt, receiptSignature);
         } else {
-            mat.trackAction(eventIdOrName, items);
+            mat.trackAction(eventIdOrName, items, Double.parseDouble(revenueAmount), currencyCode, refId);
         }
     }
     
-    public void MATTrackAction(String eventIdOrName, boolean isId, String revenueAmount, String currencyCode)
+    public void MATTrackAction(String eventIdOrName, String revenueAmount, String currencyCode)
     {
         mat.trackAction(eventIdOrName, Double.parseDouble(revenueAmount), currencyCode);
     }
@@ -93,9 +81,19 @@ class s3eMATSDK
         mat.setCurrencyCode(currencyCode);
     }
     
+    public void MATSetUserEmail(String userEmail)
+    {
+        mat.setUserEmail(userEmail);
+    }
+    
     public void MATSetUserId(String userId)
     {
         mat.setUserId(userId);
+    }
+    
+    public void MATSetUserName(String userName)
+    {
+        mat.setUserName(userName);
     }
 
     public void MATSetFacebookUserId(String facebookUserId)
@@ -112,11 +110,6 @@ class s3eMATSDK
     {
         mat.setGoogleUserId(googleUserId);
     }
-
-    public void MATSetRevenue(String revenue)
-    {
-        mat.setRevenue(Double.parseDouble(revenue));
-    }
     
     public void MATSetSiteId(String siteId)
     {
@@ -131,6 +124,41 @@ class s3eMATSDK
     public void MATSetDebugMode(boolean shouldDebug)
     {
         mat.setDebugMode(shouldDebug);
+    }
+    
+    public void MATSetGoogleAdvertisingId(String googleId)
+    {
+        mat.setGoogleAdvertisingId(googleId);
+    }
+    
+    public void MATSetEventAttribute1(String attr)
+    {
+        mat.setEventAttribute1(attr);
+    }
+    
+    public void MATSetEventAttribute2(String attr)
+    {
+        mat.setEventAttribute2(attr);
+    }
+    
+    public void MATSetEventAttribute3(String attr)
+    {
+        mat.setEventAttribute3(attr);
+    }
+    
+    public void MATSetEventAttribute4(String attr)
+    {
+        mat.setEventAttribute4(attr);
+    }
+    
+    public void MATSetEventAttribute5(String attr)
+    {
+        mat.setEventAttribute5(attr);
+    }
+    
+    public void MATSetExistingUser(boolean isExisting)
+    {
+        mat.setExistingUser(isExisting);
     }
     
     public void MATSetAllowDuplicates(boolean allowDuplicates)
@@ -165,32 +193,12 @@ class s3eMATSDK
         // not available in android
     }
     
-    public void MATSetMACAddress(String mac)
-    {
-        // not available in android
-    }
-    
-    public void MATSetODIN1(String odin1)
-    {
-        // not available in android
-    }
-    
-    public void MATSetUIID(String uiid)
-    {
-        // not available in android
-    }
-    
     public void MATSetShouldAutoGenerateAppleVendorIdentifier(boolean shouldAutoGenerate)
     {
         // not available in android
     }
     
-    public void MATSetShouldAutoGenerateAppleAdvertisingIdentifier(boolean shouldAutoGenerate)
-    {
-        // not available in android
-    }
-    
-    public void MATSetAppleAdvertisingIdentifier(String appleAdvertisingId)
+    public void MATSetAppleAdvertisingIdentifier(String appleAdvertisingId, boolean trackingEnabled)
     {
         // not available in android
     }
@@ -203,11 +211,6 @@ class s3eMATSDK
     public void MATSetJailbroken(boolean isJailbroken)
     {
         // not available in android
-    }
-    
-    public void MATSetOpenUDID(String openUDID)
-    {
-        // not implemented in android
     }
     
     public void MATSetRedirectUrl(String redirectUrl)

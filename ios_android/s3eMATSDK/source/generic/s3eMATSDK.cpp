@@ -30,39 +30,29 @@ void MATStartMobileAppTracker(const char* adId, const char* convKey)
 	MATStartMobileAppTracker_platform(adId, convKey);
 }
 
-void MATSDKParameters()
+void MATTrackSession()
 {
-	MATSDKParameters_platform();
+	MATTrackSession_platform();
 }
 
-void MATTrackInstall()
+void MATTrackSessionWithReferenceId(const char* refId)
 {
-	MATTrackInstall_platform();
+	MATTrackSessionWithReferenceId_platform(refId);
 }
 
-void MATTrackUpdate()
+void MATTrackActionForEventIdOrName(const char* eventIdOrName, const char* refId)
 {
-	MATTrackUpdate_platform();
+	MATTrackActionForEventIdOrName_platform(eventIdOrName, refId);
 }
 
-void MATTrackInstallWithReferenceId(const char* refId)
+void MATTrackActionForEventIdOrNameItems(const char* eventIdOrName, const MATArray* items, const char* refId, const char* revenueAmount, const char* currencyCode, uint8 transactionState, const char* receipt, const char* receiptSignature)
 {
-	MATTrackInstallWithReferenceId_platform(refId);
+    MATTrackActionForEventIdOrNameItems_platform(eventIdOrName, items, refId, revenueAmount, currencyCode, transactionState, receipt, receiptSignature);
 }
 
-void MATTrackActionForEventIdOrName(const char* eventIdOrName, bool isId, const char* refId)
+void MATTrackAction(const char* eventIdOrName, const char* revenue, const char*  currency)
 {
-	MATTrackActionForEventIdOrName_platform(eventIdOrName, isId, refId);
-}
-
-void MATTrackActionForEventIdOrNameItems(const char* eventIdOrName, bool isId, const MATArray* items, const char* refId, const char* revenueAmount, const char* currencyCode, uint8 transactionState, const char* receipt, const char* receiptSignature)
-{
-    MATTrackActionForEventIdOrNameItems_platform(eventIdOrName, isId, items, refId, revenueAmount, currencyCode, transactionState, receipt, receiptSignature);
-}
-
-void MATTrackAction(const char* eventIdOrName, bool isId, const char* revenue, const char*  currency)
-{
-    MATTrackAction_platform(eventIdOrName, isId, revenue, currency);
+    MATTrackAction_platform(eventIdOrName, revenue, currency);
 }
 
 void MATStartAppToAppTracking(const char* targetAppId, const char* advertiserId, const char* offerId, const char* publisherId, bool shouldRedirect)
@@ -85,14 +75,19 @@ void MATSetJailbroken(bool isJailbroken)
     MATSetJailbroken_platform(isJailbroken);
 }
 
-void MATSetOpenUDID(const char* openUDID)
+void MATSetUserEmail(const char* userEmail)
 {
-    MATSetOpenUDID_platform(openUDID);
+    MATSetUserEmail_platform(userEmail);
 }
 
 void MATSetUserId(const char* userId)
 {
     MATSetUserId_platform(userId);
+}
+
+void MATSetUserName(const char* userName)
+{
+    MATSetUserName_platform(userName);
 }
 
 void MATSetFacebookUserId(const char* userFacebookId)
@@ -110,9 +105,9 @@ void MATSetGoogleUserId(const char* userGoogleId)
     MATSetGoogleUserId_platform(userGoogleId);
 }
 
-void MATSetRevenue(const char* revenue)
+void MATSetGoogleAdvertisingId(const char* googleId)
 {
-    MATSetRevenue_platform(revenue);
+    MATSetGoogleAdvertisingId_platform(googleId);
 }
 
 void MATSetSiteId(const char* siteId)
@@ -140,6 +135,36 @@ void MATSetDebugMode(bool shouldDebug)
     MATSetDebugMode_platform(shouldDebug);
 }
 
+void MATSetEventAttribute1(const char* attr)
+{
+    MATSetEventAttribute1_platform(attr);
+}
+
+void MATSetEventAttribute2(const char* attr)
+{
+    MATSetEventAttribute2_platform(attr);
+}
+
+void MATSetEventAttribute3(const char* attr)
+{
+    MATSetEventAttribute3_platform(attr);
+}
+
+void MATSetEventAttribute4(const char* attr)
+{
+    MATSetEventAttribute4_platform(attr);
+}
+
+void MATSetEventAttribute5(const char* attr)
+{
+    MATSetEventAttribute5_platform(attr);
+}
+
+void MATSetExistingUser(bool isExistingUser)
+{
+    MATSetExistingUser_platform(isExistingUser);
+}
+
 void MATSetAllowDuplicates(bool allowDuplicates)
 {
     MATSetAllowDuplicates_platform(allowDuplicates);
@@ -150,29 +175,9 @@ void MATSetShouldAutoDetectJailbroken(bool shouldAutoDetect)
     MATSetShouldAutoDetectJailbroken_platform(shouldAutoDetect);
 }
 
-void MATSetMACAddress(const char* mac)
-{
-    MATSetMACAddress_platform(mac);
-}
-
-void MATSetODIN1(const char* odin1)
-{
-    MATSetODIN1_platform(odin1);
-}
-
-void MATSetUIID(const char* uiid)
-{
-    MATSetUIID_platform(uiid);
-}
-
 void MATSetShouldAutoGenerateAppleVendorIdentifier(bool shouldAutoGenerate)
 {
     MATSetShouldAutoGenerateAppleVendorIdentifier_platform(shouldAutoGenerate);
-}
-
-void MATSetShouldAutoGenerateAppleAdvertisingIdentifier(bool shouldAutoGenerate)
-{
-    MATSetShouldAutoGenerateAppleAdvertisingIdentifier_platform(shouldAutoGenerate);
 }
 
 void MATSetUseCookieTracking(bool useCookieTracking)
@@ -185,9 +190,9 @@ void MATSetRedirectUrl(const char* redirectUrl)
    MATSetRedirectUrl_platform(redirectUrl);
 }
 
-void MATSetAppleAdvertisingIdentifier(const char* appleAdvertisingId)
+void MATSetAppleAdvertisingIdentifier(const char* appleAdvertisingId, bool trackingEnabled)
 {
-    MATSetAppleAdvertisingIdentifier_platform(appleAdvertisingId);
+    MATSetAppleAdvertisingIdentifier_platform(appleAdvertisingId, trackingEnabled);
 }
 
 void MATSetAppleVendorIdentifier(const char* vendorId)

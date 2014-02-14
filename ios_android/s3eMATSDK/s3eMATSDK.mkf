@@ -38,7 +38,7 @@ deployments
 {
     #iphone-link-opts="-framework X" #Use this to bring in any additional link options needed
     iphone-link-libs="s3eMATSDK "
-    iphone-link-opts="-framework SystemConfiguration -framework AdSupport -framework CoreTelephony -framework MobileCoreServices "
+    iphone-link-opts="-framework SystemConfiguration -framework iAd -framework CoreTelephony -framework MobileCoreServices "
     iphone-link-libdirs=lib/iphone
 }
 
@@ -47,7 +47,7 @@ deployments
 #Include the extension's jar file during deployment
 deployments
 {
-    android-external-jars=lib/android/libMATSDK/MobileAppTracker-2.7.jar
+    android-external-jars=lib/android/libMATSDK/MobileAppTracker-3.0.3.jar
     android-external-jars=lib/android/s3eMATSDK.jar
     android-so=lib/android/libs3eMATSDK.so
 }

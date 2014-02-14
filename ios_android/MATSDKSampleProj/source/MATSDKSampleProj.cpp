@@ -22,8 +22,7 @@ char g_TouchEventMsg[128] = {0};
 
 
 Button* startBtn = 0;
-Button* showParmsBtn = 0;
-Button* sendInstallBtn = 0;
+Button* sendSessionBtn = 0;
 Button* sendEventBtn = 0;
 Button* sendEventRefBtn = 0;
 Button* setDebugBtn = 0;
@@ -80,14 +79,10 @@ void SingleTouchButtonCB(s3ePointerEvent* event)
         
         sprintf(g_TouchEventMsg, "`x666666MAT SDK Started %s %s", g_package_name, g_site_id);
     }
-    if (isPointInButton(event, showParmsBtn))
+    if (isPointInButton(event, sendSessionBtn))
     {
-        MATSDKParameters();
-    }
-    if (isPointInButton(event, sendInstallBtn))
-    {
-        MATTrackInstall();
-        sprintf(g_TouchEventMsg, "`x666666MAT SDK Install sent");
+        MATTrackSession();
+        sprintf(g_TouchEventMsg, "`x666666MAT SDK Session sent");
     }
     if (isPointInButton(event, setDebugBtn))
     {
@@ -101,7 +96,7 @@ void SingleTouchButtonCB(s3ePointerEvent* event)
         char strRevenue[32];
         sprintf(strRevenue, "%f", 12.34f);
         
-        MATTrackAction("testDCLEventItemRef", false, strRevenue, "GBP");
+        MATTrackAction("testDCLEventItemRef", strRevenue, "GBP");
         sprintf(g_TouchEventMsg, "`x666666MAT SDK Event with Reference Sent");
     }
     if (isPointInButton(event, sendEventBtn))
@@ -146,7 +141,6 @@ void SingleTouchButtonCB(s3ePointerEvent* event)
         sprintf(strRevAmount, "%f", 13.67f);
         
         MATTrackActionForEventIdOrNameItems("testDCLEventItems",
-                                                 false,
                                                  &array,
                                                  "testdclitems",
                                                  strRevAmount,
@@ -174,12 +168,11 @@ void ExampleInit()
     
 	// Init buttons.
 	startBtn = NewButton("Start MAT SDK");
-	showParmsBtn = NewButton("Show SDK Parameters");
-	sendInstallBtn = NewButton("Send Install");
+	sendSessionBtn = NewButton("Send Session");
     sendEventRefBtn = NewButton("Send Event With Ref");
 	sendEventBtn = NewButton("Send Event Items");
     setDebugBtn = NewButton("Set Debug on/off");
-	
+    
     int32 osInt = s3eDeviceGetInt(S3E_DEVICE_OS);
     if (osInt == S3E_OS_ID_ANDROID)
     {
