@@ -10,6 +10,7 @@ Discarded input sections
  .group         0x00000000        0x8 release/s3eMATSDK_platform.os
  .group         0x00000000        0x8 release/s3eMATSDK_platform.os
  .group         0x00000000        0x8 release/s3eMATSDK_platform.os
+ .group         0x00000000        0x8 release/s3eMATSDK_platform.os
  .note.GNU-stack
                 0x00000000        0x0 release/s3eMATSDK_platform.os
  .note.GNU-stack
@@ -41,146 +42,159 @@ Memory map
 .hash           0x00000328       0x4c
  ** hash        0x00000328       0x4c
 
-.rel.dyn        0x00000374      0x148
+.rel.dyn        0x00000374      0x170
  ** dynamic relocs
-                0x00000374      0x148
+                0x00000374      0x170
 
-.rel.plt        0x000004bc       0x48
+.rel.plt        0x000004e4       0x48
  ** dynamic relocs
-                0x000004bc       0x48
+                0x000004e4       0x48
 
-.plt            0x00000504       0x80
- ** PLT         0x00000504       0x80
+.plt            0x0000052c       0x80
+ ** PLT         0x0000052c       0x80
 
-.text           0x00000584     0x2690
- .text.exit     0x00000584       0x10 /Users/harshal/Library/Developer/android/ndk/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
-                0x00000584                __on_dlclose
- .text          0x00000594       0x14 /Users/harshal/Library/Developer/android/ndk/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
-                0x00000594                atexit
- .text          0x000005a8     0x1bac release/s3eMATSDK_platform.os
-                0x0000065c                MATSDKInit_platform()
-                0x00000d9c                MATSDKTerminate_platform()
-                0x00000da0                MATStartMobileAppTracker_platform(char const*, char const*)
-                0x00000e5c                MATTrackSession_platform()
-                0x00000eac                MATTrackSessionWithReferenceId_platform(char const*)
-                0x00000f34                MATTrackActionForEventIdOrName_platform(char const*, char const*)
-                0x00000ff0                MATTrackAction_platform(char const*, char const*, char const*)
-                0x000010e0                MATTrackActionForEventIdOrNameItems_platform(char const*, MATArray const*, char const*, char const*, char const*, unsigned char, char const*, char const*)
-                0x00001564                MATStartAppToAppTracking_platform(char const*, char const*, char const*, char const*, bool)
-                0x00001690                MATSetPackageName_platform(char const*)
-                0x00001718                MATSetCurrencyCode_platform(char const*)
-                0x000017a0                MATSetUserEmail_platform(char const*)
-                0x00001828                MATSetUserId_platform(char const*)
-                0x000018b0                MATSetUserName_platform(char const*)
-                0x00001938                MATSetFacebookUserId_platform(char const*)
-                0x000019c0                MATSetTwitterUserId_platform(char const*)
-                0x00001a48                MATSetGoogleUserId_platform(char const*)
-                0x00001ad0                MATSetGoogleAdvertisingId_platform(char const*)
-                0x00001b58                MATSetEventAttribute1_platform(char const*)
-                0x00001be0                MATSetEventAttribute2_platform(char const*)
-                0x00001c68                MATSetEventAttribute3_platform(char const*)
-                0x00001cf0                MATSetEventAttribute4_platform(char const*)
-                0x00001d78                MATSetEventAttribute5_platform(char const*)
-                0x00001e00                MATSetExistingUser_platform(bool)
-                0x00001e58                MATSetSiteId_platform(char const*)
-                0x00001ee0                MATSetTRUSTeId_platform(char const*)
-                0x00001f68                MATSetDebugMode_platform(bool)
-                0x00001fc0                MATSetAllowDuplicates_platform(bool)
-                0x00002018                MATSetAge_platform(int)
-                0x00002070                MATSetGender_platform(int)
-                0x000020c8                MATSetLocation_platform(char const*, char const*, char const*)
-                0x00002130                MATSetAppleAdvertisingIdentifier_platform(char const*, bool)
-                0x00002134                MATSetAppleVendorIdentifier_platform(char const*)
-                0x00002138                MATSetAppAdTracking_platform(bool)
-                0x0000213c                MATSetDelegate_platform(bool)
-                0x00002140                MATSetJailbroken_platform(bool)
-                0x00002144                MATSetRedirectUrl_platform(char const*)
-                0x00002148                MATSetShouldAutoDetectJailbroken_platform(bool)
-                0x0000214c                MATSetShouldAutoGenerateAppleVendorIdentifier_platform(bool)
-                0x00002150                MATSetUseCookieTracking_platform(bool)
+.text           0x000005ac     0x2b1c
+ .text.exit     0x000005ac       0x10 /Users/harshal/Library/Developer/android/ndk/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+                0x000005ac                __on_dlclose
+ .text          0x000005bc       0x14 /Users/harshal/Library/Developer/android/ndk/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+                0x000005bc                atexit
+ .text          0x000005d0     0x1edc release/s3eMATSDK_platform.os
+                0x00000684                MATSDKInit_platform()
+                0x00000ed4                MATSDKTerminate_platform()
+                0x00000ed8                MATStartMobileAppTracker_platform(char const*, char const*)
+                0x00000f94                MATMeasureSession_platform()
+                0x00000fe4                MATMeasureAction_platform(char const*)
+                0x0000106c                MATMeasureActionWithReferenceId_platform(char const*, char const*)
+                0x00001128                MATMeasureActionWithRevenue_platform(char const*, char const*, char const*, char const*)
+                0x00001248                MATMeasureActionWithItems_platform(char const*, MATArray const*, char const*, char const*, char const*, unsigned char, char const*, char const*)
+                0x000016cc                MATStartAppToAppTracking_platform(char const*, char const*, char const*, char const*, bool)
+                0x000017f8                MATSetPackageName_platform(char const*)
+                0x00001880                MATSetCurrencyCode_platform(char const*)
+                0x00001908                MATSetUserEmail_platform(char const*)
+                0x00001990                MATSetUserId_platform(char const*)
+                0x00001a18                MATSetUserName_platform(char const*)
+                0x00001aa0                MATSetFacebookUserId_platform(char const*)
+                0x00001b28                MATSetTwitterUserId_platform(char const*)
+                0x00001bb0                MATSetGoogleUserId_platform(char const*)
+                0x00001c38                MATSetGoogleAdvertisingId_platform(char const*, bool)
+                0x00001cc8                MATSetEventAttribute1_platform(char const*)
+                0x00001d50                MATSetEventAttribute2_platform(char const*)
+                0x00001dd8                MATSetEventAttribute3_platform(char const*)
+                0x00001e60                MATSetEventAttribute4_platform(char const*)
+                0x00001ee8                MATSetEventAttribute5_platform(char const*)
+                0x00001f70                MATSetExistingUser_platform(bool)
+                0x00001fc8                MATSetPayingUser_platform(bool)
+                0x00002020                MATSetSiteId_platform(char const*)
+                0x000020a8                MATSetTRUSTeId_platform(char const*)
+                0x00002130                MATSetDebugMode_platform(bool)
+                0x00002188                MATSetAllowDuplicates_platform(bool)
+                0x000021e0                MATSetAge_platform(int)
+                0x00002238                MATSetGender_platform(int)
+                0x00002290                MATSetLocation_platform(char const*, char const*)
+                0x000022f0                MATSetLocationWithAltitude_platform(char const*, char const*, char const*)
+                0x00002358                MATGetIsPayingUser_platform()
+                0x000023b0                MATGetMatId_platform()
+                0x0000241c                MATGetOpenLogId_platform()
+                0x00002488                MATSetAppleAdvertisingIdentifier_platform(char const*, bool)
+                0x0000248c                MATSetAppleVendorIdentifier_platform(char const*)
+                0x00002490                MATSetAppAdTracking_platform(bool)
+                0x00002494                MATSetDelegate_platform(bool)
+                0x00002498                MATSetJailbroken_platform(bool)
+                0x0000249c                MATSetRedirectUrl_platform(char const*)
+                0x000024a0                MATSetShouldAutoDetectJailbroken_platform(bool)
+                0x000024a4                MATSetShouldAutoGenerateAppleVendorIdentifier_platform(bool)
+                0x000024a8                MATSetUseCookieTracking_platform(bool)
  .text._ZN7_JNIEnv9NewObjectEP7_jclassP10_jmethodIDz
-                0x00002154       0x38 release/s3eMATSDK_platform.os
-                0x00002154                _JNIEnv::NewObject(_jclass*, _jmethodID*, ...)
+                0x000024ac       0x38 release/s3eMATSDK_platform.os
+                0x000024ac                _JNIEnv::NewObject(_jclass*, _jmethodID*, ...)
+ .text._ZN7_JNIEnv16CallObjectMethodEP8_jobjectP10_jmethodIDz
+                0x000024e4       0x38 release/s3eMATSDK_platform.os
+                0x000024e4                _JNIEnv::CallObjectMethod(_jobject*, _jmethodID*, ...)
  .text._ZN7_JNIEnv17CallBooleanMethodEP8_jobjectP10_jmethodIDz
-                0x0000218c       0x38 release/s3eMATSDK_platform.os
-                0x0000218c                _JNIEnv::CallBooleanMethod(_jobject*, _jmethodID*, ...)
+                0x0000251c       0x38 release/s3eMATSDK_platform.os
+                0x0000251c                _JNIEnv::CallBooleanMethod(_jobject*, _jmethodID*, ...)
  .text._ZN7_JNIEnv14CallVoidMethodEP8_jobjectP10_jmethodIDz
-                0x000021c4       0x38 release/s3eMATSDK_platform.os
-                0x000021c4                _JNIEnv::CallVoidMethod(_jobject*, _jmethodID*, ...)
- .text          0x000021fc       0xbc release/s3eMATSDK.os
-                0x000021fc                s3eMATSDKInit()
-                0x00002200                s3eMATSDKTerminate()
-                0x00002204                MATStartMobileAppTracker
-                0x00002208                MATTrackSession
-                0x0000220c                MATTrackSessionWithReferenceId
-                0x00002210                MATTrackActionForEventIdOrName
-                0x00002214                MATTrackActionForEventIdOrNameItems
-                0x0000222c                MATTrackAction
-                0x00002230                MATStartAppToAppTracking
-                0x0000223c                MATSetPackageName
-                0x00002240                MATSetCurrencyCode
-                0x00002244                MATSetJailbroken
-                0x00002248                MATSetUserEmail
-                0x0000224c                MATSetUserId
-                0x00002250                MATSetUserName
-                0x00002254                MATSetFacebookUserId
-                0x00002258                MATSetTwitterUserId
-                0x0000225c                MATSetGoogleUserId
-                0x00002260                MATSetGoogleAdvertisingId
-                0x00002264                MATSetSiteId
-                0x00002268                MATSetTRUSTeId
-                0x0000226c                MATSetAppAdTracking
-                0x00002270                MATSetDelegate
-                0x00002274                MATSetDebugMode
-                0x00002278                MATSetEventAttribute1
-                0x0000227c                MATSetEventAttribute2
-                0x00002280                MATSetEventAttribute3
-                0x00002284                MATSetEventAttribute4
-                0x00002288                MATSetEventAttribute5
-                0x0000228c                MATSetExistingUser
-                0x00002290                MATSetAllowDuplicates
-                0x00002294                MATSetShouldAutoDetectJailbroken
-                0x00002298                MATSetShouldAutoGenerateAppleVendorIdentifier
-                0x0000229c                MATSetUseCookieTracking
-                0x000022a0                MATSetRedirectUrl
-                0x000022a4                MATSetAppleAdvertisingIdentifier
-                0x000022a8                MATSetAppleVendorIdentifier
-                0x000022ac                MATSetAge
-                0x000022b0                MATSetGender
-                0x000022b4                MATSetLocation
- .text          0x000022b8      0x8cc release/s3eMATSDK_register.os
-                0x000028b0                s3eMATSDKRegisterExt()
-                0x00002b80                RegisterExt
- .text          0x00002b84        0x0 /Applications/Marmalade.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
+                0x00002554       0x38 release/s3eMATSDK_platform.os
+                0x00002554                _JNIEnv::CallVoidMethod(_jobject*, _jmethodID*, ...)
+ .text          0x0000258c       0xd0 release/s3eMATSDK.os
+                0x0000258c                s3eMATSDKInit()
+                0x00002590                s3eMATSDKTerminate()
+                0x00002594                MATStartMobileAppTracker
+                0x00002598                MATMeasureSession
+                0x0000259c                MATMeasureAction
+                0x000025a0                MATMeasureActionWithReferenceId
+                0x000025a4                MATMeasureActionWithRevenue
+                0x000025a8                MATMeasureActionWithItems
+                0x000025c0                MATStartAppToAppTracking
+                0x000025cc                MATSetPackageName
+                0x000025d0                MATSetCurrencyCode
+                0x000025d4                MATSetJailbroken
+                0x000025d8                MATSetUserEmail
+                0x000025dc                MATSetUserId
+                0x000025e0                MATSetUserName
+                0x000025e4                MATSetFacebookUserId
+                0x000025e8                MATSetTwitterUserId
+                0x000025ec                MATSetGoogleUserId
+                0x000025f0                MATSetGoogleAdvertisingId
+                0x000025f4                MATSetSiteId
+                0x000025f8                MATSetTRUSTeId
+                0x000025fc                MATSetAppAdTracking
+                0x00002600                MATSetDelegate
+                0x00002604                MATSetDebugMode
+                0x00002608                MATSetEventAttribute1
+                0x0000260c                MATSetEventAttribute2
+                0x00002610                MATSetEventAttribute3
+                0x00002614                MATSetEventAttribute4
+                0x00002618                MATSetEventAttribute5
+                0x0000261c                MATSetExistingUser
+                0x00002620                MATSetPayingUser
+                0x00002624                MATSetAllowDuplicates
+                0x00002628                MATSetShouldAutoDetectJailbroken
+                0x0000262c                MATSetShouldAutoGenerateAppleVendorIdentifier
+                0x00002630                MATSetUseCookieTracking
+                0x00002634                MATSetRedirectUrl
+                0x00002638                MATSetAppleAdvertisingIdentifier
+                0x0000263c                MATSetAppleVendorIdentifier
+                0x00002640                MATSetAge
+                0x00002644                MATSetGender
+                0x00002648                MATSetLocation
+                0x0000264c                MATSetLocationWithAltitude
+                0x00002650                MATGetIsPayingUser
+                0x00002654                MATGetMatId
+                0x00002658                MATGetOpenLogId
+ .text          0x0000265c      0x9dc release/s3eMATSDK_register.os
+                0x00002d14                s3eMATSDKRegisterExt()
+                0x00003034                RegisterExt
+ .text          0x00003038        0x0 /Applications/Marmalade.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
  .text.s3eEdkThreadRunOnOSAsync
-                0x00002b84       0x30 /Applications/Marmalade.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
-                0x00002b84                s3eEdkThreadRunOnOSAsync
+                0x00003038       0x30 /Applications/Marmalade.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
+                0x00003038                s3eEdkThreadRunOnOSAsync
  .text.s3eEdkThreadRunOnOS
-                0x00002bb4       0x30 /Applications/Marmalade.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
-                0x00002bb4                s3eEdkThreadRunOnOS
+                0x00003068       0x30 /Applications/Marmalade.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
+                0x00003068                s3eEdkThreadRunOnOS
  .text.s3eEdkErrorSetString
                 0xffffffffffffffff       0x30 /Applications/Marmalade.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
-                0x00002be4                s3eEdkErrorSetString
- .text          0x00002c14        0x0 /Users/harshal/Library/Developer/android/ndk/platforms/android-9/arch-arm/usr/lib/crtend_so.o
+                0x00003098                s3eEdkErrorSetString
+ .text          0x000030c8        0x0 /Users/harshal/Library/Developer/android/ndk/platforms/android-9/arch-arm/usr/lib/crtend_so.o
 
-.rodata         0x00002c14      0x4c4
+.rodata         0x000030c8      0x56c
  .rodata.str1.4
-                0x00002c14      0x4b8 release/s3eMATSDK_platform.os
+                0x000030c8      0x560 release/s3eMATSDK_platform.os
  .rodata.str1.4
-                0x000030cc        0xc release/s3eMATSDK_register.os
+                0x00003628        0xc release/s3eMATSDK_register.os
 
-.fini_array     0x00004e24        0x8
- .fini_array    0x00004e24        0x4 /Users/harshal/Library/Developer/android/ndk/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
- .fini_array    0x00004e28        0x4 /Users/harshal/Library/Developer/android/ndk/platforms/android-9/arch-arm/usr/lib/crtend_so.o
+.fini_array     0x00004e10        0x8
+ .fini_array    0x00004e10        0x4 /Users/harshal/Library/Developer/android/ndk/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+ .fini_array    0x00004e14        0x4 /Users/harshal/Library/Developer/android/ndk/platforms/android-9/arch-arm/usr/lib/crtend_so.o
 
-.init_array     0x00004e2c        0x4
- .init_array    0x00004e2c        0x4 /Users/harshal/Library/Developer/android/ndk/platforms/android-9/arch-arm/usr/lib/crtend_so.o
+.init_array     0x00004e18        0x4
+ .init_array    0x00004e18        0x4 /Users/harshal/Library/Developer/android/ndk/platforms/android-9/arch-arm/usr/lib/crtend_so.o
 
-.dynamic        0x00004e30      0x100
- ** dynamic     0x00004e30      0x100
+.dynamic        0x00004e1c      0x100
+ ** dynamic     0x00004e1c      0x100
 
-.got            0x00004f30       0xd0
- ** GOT         0x00004f30       0xa0
+.got            0x00004f1c       0xe4
+ ** GOT         0x00004f1c       0xb4
  ** GOT PLT     0x00004fd0       0x30
 
 .data           0x00005000        0x4
@@ -192,10 +206,10 @@ Memory map
  .data          0x00005004        0x0 /Applications/Marmalade.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
  .data          0x00005004        0x0 /Users/harshal/Library/Developer/android/ndk/platforms/android-9/arch-arm/usr/lib/crtend_so.o
 
-.bss            0x00005004       0x78
+.bss            0x00005004       0x8c
  .bss           0x00005004        0x0 /Users/harshal/Library/Developer/android/ndk/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
- .bss           0x00005004       0x78 release/s3eMATSDK_platform.os
- .bss           0x0000507c        0x0 release/s3eMATSDK.os
- .bss           0x0000507c        0x0 release/s3eMATSDK_register.os
- .bss           0x0000507c        0x0 /Applications/Marmalade.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
- .bss           0x0000507c        0x0 /Users/harshal/Library/Developer/android/ndk/platforms/android-9/arch-arm/usr/lib/crtend_so.o
+ .bss           0x00005004       0x8c release/s3eMATSDK_platform.os
+ .bss           0x00005090        0x0 release/s3eMATSDK.os
+ .bss           0x00005090        0x0 release/s3eMATSDK_register.os
+ .bss           0x00005090        0x0 /Applications/Marmalade.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
+ .bss           0x00005090        0x0 /Users/harshal/Library/Developer/android/ndk/platforms/android-9/arch-arm/usr/lib/crtend_so.o

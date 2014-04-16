@@ -27,32 +27,32 @@ void s3eMATSDKTerminate()
 
 void MATStartMobileAppTracker(const char* adId, const char* convKey)
 {
-	MATStartMobileAppTracker_platform(adId, convKey);
+    MATStartMobileAppTracker_platform(adId, convKey);
 }
 
-void MATTrackSession()
+void MATMeasureSession()
 {
-	MATTrackSession_platform();
+    MATMeasureSession_platform();
 }
 
-void MATTrackSessionWithReferenceId(const char* refId)
+void MATMeasureAction(const char* eventIdOrName)
 {
-	MATTrackSessionWithReferenceId_platform(refId);
+    MATMeasureAction_platform(eventIdOrName);
 }
 
-void MATTrackActionForEventIdOrName(const char* eventIdOrName, const char* refId)
+void MATMeasureActionWithReferenceId(const char* eventIdOrName, const char* refId)
 {
-	MATTrackActionForEventIdOrName_platform(eventIdOrName, refId);
+    MATMeasureActionWithReferenceId_platform(eventIdOrName, refId);
 }
 
-void MATTrackActionForEventIdOrNameItems(const char* eventIdOrName, const MATArray* items, const char* refId, const char* revenueAmount, const char* currencyCode, uint8 transactionState, const char* receipt, const char* receiptSignature)
+void MATMeasureActionWithRevenue(const char* eventIdOrName, const char* refId, const char* revenue, const char*  currency)
 {
-    MATTrackActionForEventIdOrNameItems_platform(eventIdOrName, items, refId, revenueAmount, currencyCode, transactionState, receipt, receiptSignature);
+    MATMeasureActionWithRevenue_platform(eventIdOrName, refId, revenue, currency);
 }
 
-void MATTrackAction(const char* eventIdOrName, const char* revenue, const char*  currency)
+void MATMeasureActionWithItems(const char* eventIdOrName, const MATArray* items, const char* refId, const char* revenueAmount, const char* currencyCode, uint8 transactionState, const char* receipt, const char* receiptSignature)
 {
-    MATTrackAction_platform(eventIdOrName, revenue, currency);
+    MATMeasureActionWithItems_platform(eventIdOrName, items, refId, revenueAmount, currencyCode, transactionState, receipt, receiptSignature);
 }
 
 void MATStartAppToAppTracking(const char* targetAppId, const char* advertiserId, const char* offerId, const char* publisherId, bool shouldRedirect)
@@ -105,9 +105,9 @@ void MATSetGoogleUserId(const char* userGoogleId)
     MATSetGoogleUserId_platform(userGoogleId);
 }
 
-void MATSetGoogleAdvertisingId(const char* googleId)
+void MATSetGoogleAdvertisingId(const char* googleId, bool limitAdTracking)
 {
-    MATSetGoogleAdvertisingId_platform(googleId);
+    MATSetGoogleAdvertisingId_platform(googleId, limitAdTracking);
 }
 
 void MATSetSiteId(const char* siteId)
@@ -165,6 +165,11 @@ void MATSetExistingUser(bool isExistingUser)
     MATSetExistingUser_platform(isExistingUser);
 }
 
+void MATSetPayingUser(bool isPayingUser)
+{
+    MATSetPayingUser_platform(isPayingUser);
+}
+
 void MATSetAllowDuplicates(bool allowDuplicates)
 {
     MATSetAllowDuplicates_platform(allowDuplicates);
@@ -210,7 +215,27 @@ void MATSetGender(int gender)
     MATSetGender_platform(gender);
 }
 
-void MATSetLocation(const char* latitude, const char* longitude, const char* altitude)
+void MATSetLocation(const char* latitude, const char* longitude)
 {
-    MATSetLocation_platform(latitude, longitude, altitude);
+    MATSetLocation_platform(latitude, longitude);
+}
+
+void MATSetLocationWithAltitude(const char* latitude, const char* longitude, const char* altitude)
+{
+    MATSetLocationWithAltitude_platform(latitude, longitude, altitude);
+}
+
+bool MATGetIsPayingUser()
+{
+    return MATGetIsPayingUser_platform();
+}
+
+const char* MATGetMatId()
+{
+    return MATGetMatId_platform();
+}
+
+const char* MATGetOpenLogId()
+{
+    return MATGetOpenLogId_platform();
 }

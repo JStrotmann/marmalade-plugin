@@ -38,32 +38,34 @@ class s3eMATSDK
         mat = MobileAppTracker.getInstance();
         mat.setPluginName("marmalade");
     }
-    public void MATTrackSession()
+    public void MATMeasureSession()
     {
-        mat.trackSession();
+        mat.measureSession();
     }
-    public void MATTrackSessionWithReferenceId(String refId)
+    
+    public void MATMeasureAction(String eventIdOrName)
     {
-         mat.trackAction("session", 0, null, refId);
+        mat.measureAction(eventIdOrName, 0, null, null);
     }
-    public void MATTrackActionForEventIdOrName(String eventIdOrName, String refId)
+    
+    public void MATMeasureActionWithReferenceId(String eventIdOrName, String refId)
     {
-        mat.trackAction(eventIdOrName, 0, null, refId);
+        mat.measureAction(eventIdOrName, 0, null, refId);
+    }
+    
+    public void MATMeasureActionWithRevenue(String eventIdOrName, String refId, String revenueAmount, String currencyCode)
+    {
+        mat.measureAction(eventIdOrName, Double.parseDouble(revenueAmount), currencyCode, refId);
     }
     
     // items is one or more event item hash maps
-    public void MATTrackActionForEventIdOrNameItems(String eventIdOrName, List<MATEventItem> items, String refId, String revenueAmount, String currencyCode, int transactionState, String receipt, String receiptSignature)
+    public void MATMeasureActionWithItems(String eventIdOrName, List<MATEventItem> items, String refId, String revenueAmount, String currencyCode, int transactionState, String receipt, String receiptSignature)
     {
         if (receiptSignature != null && receiptSignature.length() > 0) {
-            mat.trackAction(eventIdOrName, items, Double.parseDouble(revenueAmount), currencyCode, refId, receipt, receiptSignature);
+            mat.measureAction(eventIdOrName, items, Double.parseDouble(revenueAmount), currencyCode, refId, receipt, receiptSignature);
         } else {
-            mat.trackAction(eventIdOrName, items, Double.parseDouble(revenueAmount), currencyCode, refId);
+            mat.measureAction(eventIdOrName, items, Double.parseDouble(revenueAmount), currencyCode, refId);
         }
-    }
-    
-    public void MATTrackAction(String eventIdOrName, String revenueAmount, String currencyCode)
-    {
-        mat.trackAction(eventIdOrName, Double.parseDouble(revenueAmount), currencyCode);
     }
     
     public void MATStartAppToAppTracking(String targetAppId, String advertiserId, String offerId, String publisherId, boolean shouldRedirect)
@@ -126,9 +128,9 @@ class s3eMATSDK
         mat.setDebugMode(shouldDebug);
     }
     
-    public void MATSetGoogleAdvertisingId(String googleId)
+    public void MATSetGoogleAdvertisingId(String googleId, boolean limitAdTracking)
     {
-        mat.setGoogleAdvertisingId(googleId);
+        mat.setGoogleAdvertisingId(googleId, limitAdTracking);
     }
     
     public void MATSetEventAttribute1(String attr)
@@ -161,27 +163,54 @@ class s3eMATSDK
         mat.setExistingUser(isExisting);
     }
     
+    public void MATSetPayingUser(boolean isPaying)
+    {
+        mat.setIsPayingUser(isPaying);
+    }
+    
     public void MATSetAllowDuplicates(boolean allowDuplicates)
     {
-		mat.setAllowDuplicates(allowDuplicates);
+        mat.setAllowDuplicates(allowDuplicates);
     }
     
     public void MATSetAge(int age)
     {
-		mat.setAge(age);
+        mat.setAge(age);
     }
     
     public void MATSetGender(int gender)
     {
-		mat.setGender(1 == gender ? MobileAppTracker.GENDER_FEMALE : MobileAppTracker.GENDER_MALE);
+        mat.setGender(1 == gender ? MobileAppTracker.GENDER_FEMALE : MobileAppTracker.GENDER_MALE);
     }
     
-    public void MATSetLocation(double latitude, double longitude, double altitude)
+    public void MATSetLocation(double latitude, double longitude)
     {
-		mat.setLatitude(latitude);
+        mat.setLatitude(latitude);
+        mat.setLongitude(longitude);
+    }
+    
+    public void MATSetLocationWithAltitude(double latitude, double longitude, double altitude)
+    {
+        mat.setLatitude(latitude);
         mat.setLongitude(longitude);
         mat.setAltitude(altitude);
     }
+    
+    public boolean MATGetIsPayingUser()
+    {
+        return mat.getIsPayingUser();
+    }
+    
+    public String MATGetMatId()
+    {
+        return mat.getMatId();
+    }
+    
+    public String MATGetOpenLogId()
+    {
+        return mat.getOpenLogId();
+    }
+    
     
     public void MATSetAppAdTracking(boolean enable)
     {

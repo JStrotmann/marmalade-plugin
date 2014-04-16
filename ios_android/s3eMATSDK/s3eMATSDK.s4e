@@ -3,24 +3,22 @@ include:
 
 #define S3E_MATSDK_STRING_MAX 255
 
-struct s3eMATTracker;
-
 typedef struct MATSDKEventItem
 {
-	char		name[S3E_MATSDK_STRING_MAX];
-	char 		unitPrice[S3E_MATSDK_STRING_MAX];
-	int			quantity;
-	char		revenue[S3E_MATSDK_STRING_MAX];
-	char		attribute1[S3E_MATSDK_STRING_MAX];
-	char		attribute2[S3E_MATSDK_STRING_MAX];
-	char		attribute3[S3E_MATSDK_STRING_MAX];
-	char		attribute4[S3E_MATSDK_STRING_MAX];
-	char		attribute5[S3E_MATSDK_STRING_MAX];
+    char        name[S3E_MATSDK_STRING_MAX];
+    char        unitPrice[S3E_MATSDK_STRING_MAX];
+    int         quantity;
+    char        revenue[S3E_MATSDK_STRING_MAX];
+    char        attribute1[S3E_MATSDK_STRING_MAX];
+    char        attribute2[S3E_MATSDK_STRING_MAX];
+    char        attribute3[S3E_MATSDK_STRING_MAX];
+    char        attribute4[S3E_MATSDK_STRING_MAX];
+    char        attribute5[S3E_MATSDK_STRING_MAX];
 } MATSDKEventItem;
 
 typedef struct MATArray {
-	void *m_items; // Items in array
-	unsigned int m_count; // number of items
+    void *m_items; // Items in array
+    unsigned int m_count; // number of items
 } MATArray;
 
 functions:
@@ -29,11 +27,12 @@ functions:
 void MATStartMobileAppTracker(const char* adId, const char* convKey) run_on_os_thread
 
 // Tracking Methods
-void MATTrackSession() run_on_os_thread
-void MATTrackSessionWithReferenceId(const char* refId) run_on_os_thread
-void MATTrackActionForEventIdOrName(const char* eventIdOrName, const char* refId) run_on_os_thread
-void MATTrackActionForEventIdOrNameItems(const char* eventIdOrName, const MATArray* items, const char* refId, const char* revenueAmount, const char* currencyCode, uint8 transactionState, const char* receipt, const char* receiptSignature) run_on_os_thread
-void MATTrackAction(const char* eventIdOrName, const char* revenue, const char* currency) run_on_os_thread
+void MATMeasureSession() run_on_os_thread
+
+void MATMeasureAction(const char* eventIdOrName) run_on_os_thread
+void MATMeasureActionWithReferenceId(const char* eventIdOrName, const char* refId) run_on_os_thread
+void MATMeasureActionWithRevenue(const char* eventIdOrName, const char* refId, const char* revenueAmount, const char* currencyCode) run_on_os_thread
+void MATMeasureActionWithItems(const char* eventIdOrName, const MATArray* items, const char* refId, const char* revenueAmount, const char* currencyCode, uint8 transactionState, const char* receipt, const char* receiptSignature) run_on_os_thread
 
 // Setter Methods
 void MATSetPackageName(const char* packageName) run_on_os_thread
@@ -44,7 +43,7 @@ void MATSetUserName(const char* userName) run_on_os_thread
 void MATSetFacebookUserId(const char* userFacebookId) run_on_os_thread
 void MATSetTwitterUserId(const char* userTwitterId) run_on_os_thread
 void MATSetGoogleUserId(const char* userGoogleId) run_on_os_thread
-void MATSetGoogleAdvertisingId(const char* googleId) run_on_os_thread
+void MATSetGoogleAdvertisingId(const char* googleId, bool limitAdTracking) run_on_os_thread
 void MATSetSiteId(const char* siteId) run_on_os_thread
 void MATSetTRUSTeId(const char* tpid) run_on_os_thread
 void MATSetAppAdTracking(bool enable) run_on_os_thread
@@ -55,12 +54,19 @@ void MATSetEventAttribute3(const char* attr) run_on_os_thread
 void MATSetEventAttribute4(const char* attr) run_on_os_thread
 void MATSetEventAttribute5(const char* attr) run_on_os_thread
 void MATSetExistingUser(bool isExisting) run_on_os_thread
+void MATSetPayingUser(bool isPaying) run_on_os_thread
 void MATSetJailbroken(bool isJailbroken) run_on_os_thread
 void MATSetShouldAutoDetectJailbroken(bool shouldAutoDetect) run_on_os_thread
 void MATSetUseCookieTracking(bool useCookieTracking) run_on_os_thread
 void MATSetAge(int age) run_on_os_thread
 void MATSetGender(int gender) run_on_os_thread
-void MATSetLocation(const char* latitude, const char* longitude, const char* altitude) run_on_os_thread
+void MATSetLocation(const char* latitude, const char* longitude) run_on_os_thread
+void MATSetLocationWithAltitude(const char* latitude, const char* longitude, const char* altitude) run_on_os_thread
+
+// Getter Methods
+bool MATGetIsPayingUser() false run_on_os_thread
+const char* MATGetMatId() NULL run_on_os_thread
+const char* MATGetOpenLogId() NULL run_on_os_thread
 
 // App-to-App Tracking
 void MATStartAppToAppTracking(const char* targetAppId, const char* advertiserId, const char* offerId, const char* publisherId, bool shouldRedirect) run_on_os_thread

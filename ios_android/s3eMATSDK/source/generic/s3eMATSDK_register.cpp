@@ -30,34 +30,34 @@ static void MATStartMobileAppTracker_wrap(const char* adId, const char* convKey)
     s3eEdkThreadRunOnOS((s3eEdkThreadFunc)MATStartMobileAppTracker, 2, adId, convKey);
 }
 
-static void MATTrackSession_wrap()
+static void MATMeasureSession_wrap()
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK func on main thread: MATTrackSession"));
-    s3eEdkThreadRunOnOS((s3eEdkThreadFunc)MATTrackSession, 0);
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK func on main thread: MATMeasureSession"));
+    s3eEdkThreadRunOnOS((s3eEdkThreadFunc)MATMeasureSession, 0);
 }
 
-static void MATTrackSessionWithReferenceId_wrap(const char* refId)
+static void MATMeasureAction_wrap(const char* eventIdOrName)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK func on main thread: MATTrackSessionWithReferenceId"));
-    s3eEdkThreadRunOnOS((s3eEdkThreadFunc)MATTrackSessionWithReferenceId, 1, refId);
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK func on main thread: MATMeasureAction"));
+    s3eEdkThreadRunOnOS((s3eEdkThreadFunc)MATMeasureAction, 1, eventIdOrName);
 }
 
-static void MATTrackActionForEventIdOrName_wrap(const char* eventIdOrName, const char* refId)
+static void MATMeasureActionWithReferenceId_wrap(const char* eventIdOrName, const char* refId)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK func on main thread: MATTrackActionForEventIdOrName"));
-    s3eEdkThreadRunOnOS((s3eEdkThreadFunc)MATTrackActionForEventIdOrName, 2, eventIdOrName, refId);
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK func on main thread: MATMeasureActionWithReferenceId"));
+    s3eEdkThreadRunOnOS((s3eEdkThreadFunc)MATMeasureActionWithReferenceId, 2, eventIdOrName, refId);
 }
 
-static void MATTrackActionForEventIdOrNameItems_wrap(const char* eventIdOrName, const MATArray* items, const char* refId, const char* revenueAmount, const char* currencyCode, uint8 transactionState, const char* receipt, const char* receiptSignature)
+static void MATMeasureActionWithRevenue_wrap(const char* eventIdOrName, const char* refId, const char* revenueAmount, const char* currencyCode)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK func on main thread: MATTrackActionForEventIdOrNameItems"));
-    s3eEdkThreadRunOnOS((s3eEdkThreadFunc)MATTrackActionForEventIdOrNameItems, 8, eventIdOrName, items, refId, revenueAmount, currencyCode, transactionState, receipt, receiptSignature);
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK func on main thread: MATMeasureActionWithRevenue"));
+    s3eEdkThreadRunOnOS((s3eEdkThreadFunc)MATMeasureActionWithRevenue, 4, eventIdOrName, refId, revenueAmount, currencyCode);
 }
 
-static void MATTrackAction_wrap(const char* eventIdOrName, const char* revenue, const char* currency)
+static void MATMeasureActionWithItems_wrap(const char* eventIdOrName, const MATArray* items, const char* refId, const char* revenueAmount, const char* currencyCode, uint8 transactionState, const char* receipt, const char* receiptSignature)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK func on main thread: MATTrackAction"));
-    s3eEdkThreadRunOnOS((s3eEdkThreadFunc)MATTrackAction, 3, eventIdOrName, revenue, currency);
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK func on main thread: MATMeasureActionWithItems"));
+    s3eEdkThreadRunOnOS((s3eEdkThreadFunc)MATMeasureActionWithItems, 8, eventIdOrName, items, refId, revenueAmount, currencyCode, transactionState, receipt, receiptSignature);
 }
 
 static void MATSetPackageName_wrap(const char* packageName)
@@ -108,10 +108,10 @@ static void MATSetGoogleUserId_wrap(const char* userGoogleId)
     s3eEdkThreadRunOnOS((s3eEdkThreadFunc)MATSetGoogleUserId, 1, userGoogleId);
 }
 
-static void MATSetGoogleAdvertisingId_wrap(const char* googleId)
+static void MATSetGoogleAdvertisingId_wrap(const char* googleId, bool limitAdTracking)
 {
     IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK func on main thread: MATSetGoogleAdvertisingId"));
-    s3eEdkThreadRunOnOS((s3eEdkThreadFunc)MATSetGoogleAdvertisingId, 1, googleId);
+    s3eEdkThreadRunOnOS((s3eEdkThreadFunc)MATSetGoogleAdvertisingId, 2, googleId, limitAdTracking);
 }
 
 static void MATSetSiteId_wrap(const char* siteId)
@@ -174,6 +174,12 @@ static void MATSetExistingUser_wrap(bool isExisting)
     s3eEdkThreadRunOnOS((s3eEdkThreadFunc)MATSetExistingUser, 1, isExisting);
 }
 
+static void MATSetPayingUser_wrap(bool isPaying)
+{
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK func on main thread: MATSetPayingUser"));
+    s3eEdkThreadRunOnOS((s3eEdkThreadFunc)MATSetPayingUser, 1, isPaying);
+}
+
 static void MATSetJailbroken_wrap(bool isJailbroken)
 {
     IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK func on main thread: MATSetJailbroken"));
@@ -204,10 +210,34 @@ static void MATSetGender_wrap(int gender)
     s3eEdkThreadRunOnOS((s3eEdkThreadFunc)MATSetGender, 1, gender);
 }
 
-static void MATSetLocation_wrap(const char* latitude, const char* longitude, const char* altitude)
+static void MATSetLocation_wrap(const char* latitude, const char* longitude)
 {
     IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK func on main thread: MATSetLocation"));
-    s3eEdkThreadRunOnOS((s3eEdkThreadFunc)MATSetLocation, 3, latitude, longitude, altitude);
+    s3eEdkThreadRunOnOS((s3eEdkThreadFunc)MATSetLocation, 2, latitude, longitude);
+}
+
+static void MATSetLocationWithAltitude_wrap(const char* latitude, const char* longitude, const char* altitude)
+{
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK func on main thread: MATSetLocationWithAltitude"));
+    s3eEdkThreadRunOnOS((s3eEdkThreadFunc)MATSetLocationWithAltitude, 3, latitude, longitude, altitude);
+}
+
+static bool MATGetIsPayingUser_wrap()
+{
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK func on main thread: MATGetIsPayingUser"));
+    return (bool)(intptr_t)s3eEdkThreadRunOnOS((s3eEdkThreadFunc)MATGetIsPayingUser, 0);
+}
+
+static const char* MATGetMatId_wrap()
+{
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK func on main thread: MATGetMatId"));
+    return (const char*)(intptr_t)s3eEdkThreadRunOnOS((s3eEdkThreadFunc)MATGetMatId, 0);
+}
+
+static const char* MATGetOpenLogId_wrap()
+{
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK func on main thread: MATGetOpenLogId"));
+    return (const char*)(intptr_t)s3eEdkThreadRunOnOS((s3eEdkThreadFunc)MATGetOpenLogId, 0);
 }
 
 static void MATStartAppToAppTracking_wrap(const char* targetAppId, const char* advertiserId, const char* offerId, const char* publisherId, bool shouldRedirect)
@@ -253,11 +283,11 @@ static void MATSetAllowDuplicates_wrap(bool allowDuplicates)
 }
 
 #define MATStartMobileAppTracker MATStartMobileAppTracker_wrap
-#define MATTrackSession MATTrackSession_wrap
-#define MATTrackSessionWithReferenceId MATTrackSessionWithReferenceId_wrap
-#define MATTrackActionForEventIdOrName MATTrackActionForEventIdOrName_wrap
-#define MATTrackActionForEventIdOrNameItems MATTrackActionForEventIdOrNameItems_wrap
-#define MATTrackAction MATTrackAction_wrap
+#define MATMeasureSession MATMeasureSession_wrap
+#define MATMeasureAction MATMeasureAction_wrap
+#define MATMeasureActionWithReferenceId MATMeasureActionWithReferenceId_wrap
+#define MATMeasureActionWithRevenue MATMeasureActionWithRevenue_wrap
+#define MATMeasureActionWithItems MATMeasureActionWithItems_wrap
 #define MATSetPackageName MATSetPackageName_wrap
 #define MATSetCurrencyCode MATSetCurrencyCode_wrap
 #define MATSetUserEmail MATSetUserEmail_wrap
@@ -277,12 +307,17 @@ static void MATSetAllowDuplicates_wrap(bool allowDuplicates)
 #define MATSetEventAttribute4 MATSetEventAttribute4_wrap
 #define MATSetEventAttribute5 MATSetEventAttribute5_wrap
 #define MATSetExistingUser MATSetExistingUser_wrap
+#define MATSetPayingUser MATSetPayingUser_wrap
 #define MATSetJailbroken MATSetJailbroken_wrap
 #define MATSetShouldAutoDetectJailbroken MATSetShouldAutoDetectJailbroken_wrap
 #define MATSetUseCookieTracking MATSetUseCookieTracking_wrap
 #define MATSetAge MATSetAge_wrap
 #define MATSetGender MATSetGender_wrap
 #define MATSetLocation MATSetLocation_wrap
+#define MATSetLocationWithAltitude MATSetLocationWithAltitude_wrap
+#define MATGetIsPayingUser MATGetIsPayingUser_wrap
+#define MATGetMatId MATGetMatId_wrap
+#define MATGetOpenLogId MATGetOpenLogId_wrap
 #define MATStartAppToAppTracking MATStartAppToAppTracking_wrap
 #define MATSetRedirectUrl MATSetRedirectUrl_wrap
 #define MATSetAppleAdvertisingIdentifier MATSetAppleAdvertisingIdentifier_wrap
@@ -296,13 +331,13 @@ static void MATSetAllowDuplicates_wrap(bool allowDuplicates)
 void s3eMATSDKRegisterExt()
 {
     /* fill in the function pointer struct for this extension */
-    void* funcPtrs[38];
+    void* funcPtrs[43];
     funcPtrs[0] = (void*)MATStartMobileAppTracker;
-    funcPtrs[1] = (void*)MATTrackSession;
-    funcPtrs[2] = (void*)MATTrackSessionWithReferenceId;
-    funcPtrs[3] = (void*)MATTrackActionForEventIdOrName;
-    funcPtrs[4] = (void*)MATTrackActionForEventIdOrNameItems;
-    funcPtrs[5] = (void*)MATTrackAction;
+    funcPtrs[1] = (void*)MATMeasureSession;
+    funcPtrs[2] = (void*)MATMeasureAction;
+    funcPtrs[3] = (void*)MATMeasureActionWithReferenceId;
+    funcPtrs[4] = (void*)MATMeasureActionWithRevenue;
+    funcPtrs[5] = (void*)MATMeasureActionWithItems;
     funcPtrs[6] = (void*)MATSetPackageName;
     funcPtrs[7] = (void*)MATSetCurrencyCode;
     funcPtrs[8] = (void*)MATSetUserEmail;
@@ -322,24 +357,29 @@ void s3eMATSDKRegisterExt()
     funcPtrs[22] = (void*)MATSetEventAttribute4;
     funcPtrs[23] = (void*)MATSetEventAttribute5;
     funcPtrs[24] = (void*)MATSetExistingUser;
-    funcPtrs[25] = (void*)MATSetJailbroken;
-    funcPtrs[26] = (void*)MATSetShouldAutoDetectJailbroken;
-    funcPtrs[27] = (void*)MATSetUseCookieTracking;
-    funcPtrs[28] = (void*)MATSetAge;
-    funcPtrs[29] = (void*)MATSetGender;
-    funcPtrs[30] = (void*)MATSetLocation;
-    funcPtrs[31] = (void*)MATStartAppToAppTracking;
-    funcPtrs[32] = (void*)MATSetRedirectUrl;
-    funcPtrs[33] = (void*)MATSetAppleAdvertisingIdentifier;
-    funcPtrs[34] = (void*)MATSetAppleVendorIdentifier;
-    funcPtrs[35] = (void*)MATSetShouldAutoGenerateAppleVendorIdentifier;
-    funcPtrs[36] = (void*)MATSetDebugMode;
-    funcPtrs[37] = (void*)MATSetAllowDuplicates;
+    funcPtrs[25] = (void*)MATSetPayingUser;
+    funcPtrs[26] = (void*)MATSetJailbroken;
+    funcPtrs[27] = (void*)MATSetShouldAutoDetectJailbroken;
+    funcPtrs[28] = (void*)MATSetUseCookieTracking;
+    funcPtrs[29] = (void*)MATSetAge;
+    funcPtrs[30] = (void*)MATSetGender;
+    funcPtrs[31] = (void*)MATSetLocation;
+    funcPtrs[32] = (void*)MATSetLocationWithAltitude;
+    funcPtrs[33] = (void*)MATGetIsPayingUser;
+    funcPtrs[34] = (void*)MATGetMatId;
+    funcPtrs[35] = (void*)MATGetOpenLogId;
+    funcPtrs[36] = (void*)MATStartAppToAppTracking;
+    funcPtrs[37] = (void*)MATSetRedirectUrl;
+    funcPtrs[38] = (void*)MATSetAppleAdvertisingIdentifier;
+    funcPtrs[39] = (void*)MATSetAppleVendorIdentifier;
+    funcPtrs[40] = (void*)MATSetShouldAutoGenerateAppleVendorIdentifier;
+    funcPtrs[41] = (void*)MATSetDebugMode;
+    funcPtrs[42] = (void*)MATSetAllowDuplicates;
 
     /*
      * Flags that specify the extension's use of locking and stackswitching
      */
-    int flags[38] = { 0 };
+    int flags[43] = { 0 };
 
     /*
      * Register the extension

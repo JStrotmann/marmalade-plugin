@@ -1,0 +1,121 @@
+Archive member included because of file (symbol)
+
+/Applications/Marmalade.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
+                              release/IFAWrapper_platform.os (s3eEdkThreadRunOnOS)
+
+Discarded input sections
+
+ .note.GNU-stack
+                0x00000000        0x0 /Users/harshal/Library/Developer/android/ndk/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+ .group         0x00000000        0x8 release/IFAWrapper_platform.os
+ .note.GNU-stack
+                0x00000000        0x0 release/IFAWrapper_platform.os
+ .note.GNU-stack
+                0x00000000        0x0 release/IFAWrapper.os
+ .note.GNU-stack
+                0x00000000        0x0 release/IFAWrapper_register.os
+ .note.GNU-stack
+                0x00000000        0x0 /Applications/Marmalade.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
+ .note.GNU-stack
+                0x00000000        0x0 /Users/harshal/Library/Developer/android/ndk/platforms/android-9/arch-arm/usr/lib/crtend_so.o
+
+Memory map
+
+ ** file header
+                0x00000000       0x34
+ ** segment headers
+                0x00000034       0xe0
+
+.interp         0x00000114       0x13
+ ** fill        0x00000114       0x13
+
+.dynsym         0x00000128       0xc0
+ ** dynsym      0x00000128       0xc0
+
+.dynstr         0x000001e8      0x112
+ ** string table
+                0x000001e8      0x112
+
+.hash           0x000002fc       0x44
+ ** hash        0x000002fc       0x44
+
+.rel.dyn        0x00000340       0x28
+ ** dynamic relocs
+                0x00000340       0x28
+
+.rel.plt        0x00000368       0x38
+ ** dynamic relocs
+                0x00000368       0x38
+
+.plt            0x000003a0       0x68
+ ** PLT         0x000003a0       0x68
+
+.text           0x00000408      0x4c8
+ .text.exit     0x00000408       0x10 /Users/harshal/Library/Developer/android/ndk/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+                0x00000408                __on_dlclose
+ .text          0x00000418       0x14 /Users/harshal/Library/Developer/android/ndk/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+                0x00000418                atexit
+ .text          0x0000042c      0x274 release/IFAWrapper_platform.os
+                0x000004e0                IFAWrapperInit_platform()
+                0x0000068c                IFAWrapperTerminate_platform()
+                0x00000690                IFAGetAppleAdvertisingIdentifier_platform()
+                0x00000698                IFAGetIsAdvertisingTrackingEnabled_platform()
+ .text._ZN7_JNIEnv9NewObjectEP7_jclassP10_jmethodIDz
+                0x000006a0       0x38 release/IFAWrapper_platform.os
+                0x000006a0                _JNIEnv::NewObject(_jclass*, _jmethodID*, ...)
+ .text          0x000006d8       0x10 release/IFAWrapper.os
+                0x000006d8                IFAWrapperInit()
+                0x000006dc                IFAWrapperTerminate()
+                0x000006e0                IFAGetAppleAdvertisingIdentifier
+                0x000006e4                IFAGetIsAdvertisingTrackingEnabled
+ .text          0x000006e8      0x158 release/IFAWrapper_register.os
+                0x00000738                IFAWrapperRegisterExt()
+                0x000007bc                RegisterExt
+ .text          0x00000840        0x0 /Applications/Marmalade.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
+ .text.s3eEdkThreadRunOnOSAsync
+                0x00000840       0x30 /Applications/Marmalade.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
+                0x00000840                s3eEdkThreadRunOnOSAsync
+ .text.s3eEdkThreadRunOnOS
+                0x00000870       0x30 /Applications/Marmalade.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
+                0x00000870                s3eEdkThreadRunOnOS
+ .text.s3eEdkErrorSetString
+                0xffffffffffffffff       0x30 /Applications/Marmalade.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
+                0x000008a0                s3eEdkErrorSetString
+ .text          0x000008d0        0x0 /Users/harshal/Library/Developer/android/ndk/platforms/android-9/arch-arm/usr/lib/crtend_so.o
+
+.rodata         0x000008d0       0x88
+ .rodata.str1.4
+                0x000008d0       0x7c release/IFAWrapper_platform.os
+ .rodata.str1.4
+                0x0000094c        0xc release/IFAWrapper_register.os
+
+.fini_array     0x00001ebc        0x8
+ .fini_array    0x00001ebc        0x4 /Users/harshal/Library/Developer/android/ndk/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+ .fini_array    0x00001ec0        0x4 /Users/harshal/Library/Developer/android/ndk/platforms/android-9/arch-arm/usr/lib/crtend_so.o
+
+.init_array     0x00001ec4        0x4
+ .init_array    0x00001ec4        0x4 /Users/harshal/Library/Developer/android/ndk/platforms/android-9/arch-arm/usr/lib/crtend_so.o
+
+.dynamic        0x00001ec8      0x100
+ ** dynamic     0x00001ec8      0x100
+
+.got            0x00001fc8       0x38
+ ** GOT         0x00001fc8       0x10
+ ** GOT PLT     0x00001fd8       0x28
+
+.data           0x00002000        0x4
+ .data          0x00002000        0x4 /Users/harshal/Library/Developer/android/ndk/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+                0x00002000                __dso_handle
+ .data          0x00002004        0x0 release/IFAWrapper_platform.os
+ .data          0x00002004        0x0 release/IFAWrapper.os
+ .data          0x00002004        0x0 release/IFAWrapper_register.os
+ .data          0x00002004        0x0 /Applications/Marmalade.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
+ .data          0x00002004        0x0 /Users/harshal/Library/Developer/android/ndk/platforms/android-9/arch-arm/usr/lib/crtend_so.o
+
+.bss            0x00002004        0xc
+ .bss           0x00002004        0x0 /Users/harshal/Library/Developer/android/ndk/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+ .bss           0x00002004        0xc release/IFAWrapper_platform.os
+ .bss           0x00002010        0x0 release/IFAWrapper.os
+ .bss           0x00002010        0x0 release/IFAWrapper_register.os
+ .bss           0x00002010        0x0 /Applications/Marmalade.app/Contents/s3e/edk/lib/android/libedk.a(edk_helpers.o)
+ .bss           0x00002010        0x0 /Users/harshal/Library/Developer/android/ndk/platforms/android-9/arch-arm/usr/lib/crtend_so.o

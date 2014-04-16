@@ -23,7 +23,6 @@ extension
     ("$MARMALADE_ROOT/s3e/edk/builder")
 #    "make_extension s3eMATSDK.s4e"  <<< old version
      "edk_build s3eMATSDK.s4e"
-     
 }
 
 #include the extension builder subproject
@@ -35,12 +34,13 @@ if {{defined I3D_OS_IPHONE}}
 
     files
     {
-	["MobileAppTracking Library"]
-	(incoming)
-	"*.o"
+        ["MobileAppTracking Library"]
+        (incoming)
+        "*.o"
         ["source"]
         (use_first_found, source/iphone, source/generic)
         s3eMATSDK_platform.mm
+        
         #Add any iphone-specific files here
     }
 }
@@ -52,6 +52,7 @@ if {{defined I3D_OS_WINDOWS}}
         ["source"]
         (use_first_found, source/windows, source/generic)
         s3eMATSDK_platform.cpp
+        
         #Add any windows-specific files here
     }
 }
@@ -63,6 +64,7 @@ if {{defined S3E_ANDROID}}
         ["source"]
         (use_first_found, source/android, source/generic)
         s3eMATSDK_platform.cpp
+        
         #Add any android-specific files here
     }
 }
@@ -74,6 +76,7 @@ if {{defined I3D_OS_OSX}}
         ["source"]
         (use_first_found, source/osx, source/generic)
         s3eMATSDK_platform.mm
+        
         #Add any osx-specific files here
     }
 }
@@ -85,16 +88,17 @@ if {{defined I3D_OS_LINUX and not defined S3E_ANDROID}}
         ["source"]
         (use_first_found, source/linux, source/generic)
         s3eMATSDK_platform.cpp
+        
         #Add any linux-specific files here
     }
 }
 
 files
 {
-
     # Add any platform-independent files here
     # Note that if the file exists in the platform-specific directory
     # it will be taken from there instead of 'generic'
+    
     s3eMATSDK_register.cpp
     s3eMATSDK.cpp
 

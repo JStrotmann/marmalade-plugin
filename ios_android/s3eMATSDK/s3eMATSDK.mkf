@@ -47,7 +47,7 @@ deployments
 #Include the extension's jar file during deployment
 deployments
 {
-    android-external-jars=lib/android/libMATSDK/MobileAppTracker-3.0.3.jar
+    android-external-jars=lib/android/libMATSDK/MobileAppTracker-3.1.jar
     android-external-jars=lib/android/s3eMATSDK.jar
     android-so=lib/android/libs3eMATSDK.so
 }

@@ -1,0 +1,10 @@
+include:
+#include <s3eTypes.h>
+
+#define S3E_IFAWRAPPER_STRING_MAX 255
+
+functions:
+
+// Getter Methods
+const char* IFAGetAppleAdvertisingIdentifier() NULL run_on_os_thread
+bool IFAGetIsAdvertisingTrackingEnabled() false run_on_os_thread

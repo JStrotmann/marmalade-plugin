@@ -1,40 +1,41 @@
 options
 {
-	s3e-data-dir="data"
-	arm
-	compiler=gcc
-	debug
-	verbose=2
+    s3e-data-dir="data"
+    arm
+    compiler=gcc
+    debug
+    verbose=2
 }
  
 files
 {
-	(source)
-	MATSDKSampleProj.cpp
-	MATSDKSampleProjMain.cpp
+    (source)
+    MATSDKSampleProj.cpp
+    MATSDKSampleProjMain.cpp
 }
  
 subprojects
 {
-	s3eMATSDK
-	iwutil
-	ExamplesMain
+    s3eMATSDK
+    IFAWrapper
+    iwutil
+    ExamplesMain
 }
 
 assets
 {
-	(data)
-	logo.raw
-	splash.jpg
+    (data)
+    logo.raw
+    splash.jpg
 }
 
 #### AUTO GENERATED deployment settings from DeployTool.exe. Do not edit below this line ####
 deployments
 {
-	["Default"]
-	app-icf='data/app.icf'
-	iphone-appid='2GLFC47AY5.com.hasoffers.marmaladeTestApp'
-	iphone-provisioning-profile='Marmalade_dev_profile.mobileprovision'
+    ["Default"]
+    app-icf='data/app.icf'
+    iphone-appid='2GLFC47AY5.com.hasoffers.marmaladeTestApp'
+    iphone-provisioning-profile='Marmalade_dev_profile.mobileprovision'
 
-	android-manifest='AndroidManifest.xml'
+    android-manifest='AndroidManifest.xml'
 }

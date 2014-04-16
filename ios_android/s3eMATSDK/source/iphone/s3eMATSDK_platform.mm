@@ -14,6 +14,7 @@
 #include "IwDebug.h"
 
 #include "MobileAppTracker.h"
+#include "MATEventItem.h"
 
 #define S3E_CURRENT_EXT MATSDK
 #include "s3eEdkError.h"
@@ -36,13 +37,11 @@ NSString* CreateNSString (const char* string)
 - (void)mobileAppTrackerDidSucceedWithData:(NSData *)data
 {
     NSString * dataString = [[[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding] autorelease];
-    NSLog(@"MobileAppTracker:trackerDidSucceed: %@", dataString);
+    NSLog(@"Native: MATSDKDelegate: success: %@", dataString);
 }
 
 - (void)mobileAppTrackerDidFailWithError:(NSError *)error
 {
-    //NSLog(@"Native: MATSDKDelegate: error = %@", error);
-    
     NSInteger errorCode = [error code];
     NSString *errorDescr = [error localizedDescription];
     
@@ -58,7 +57,12 @@ NSString* CreateNSString (const char* string)
     
     NSString *strError = [NSString stringWithFormat:@"{\"code\":\"%d\",\"localizedDescription\":\"%@\",\"failedURL\":\"%@\"}", errorCode, errorDescr, errorURLString];
     
-    NSLog(@"MobileAppTracker:trackerDidFail: %@", strError);
+    NSLog(@"Native: MATSDKDelegate: error = %@", strError);
+}
+
+- (void)mobileAppTrackerEnqueuedActionWithReferenceId:(NSString *)referenceId
+{
+    NSLog(@"Native: MATSDKDelegate: enqueued: %@", referenceId);
 }
 
 @end
@@ -84,7 +88,7 @@ void MATStartMobileAppTracker_platform(const char* adId, const char* convKey)
     {
         NSString *aid = [NSString stringWithUTF8String:adId];
         NSString *ckey = [NSString stringWithUTF8String:convKey];
-        [MobileAppTracker startTrackerWithMATAdvertiserId:aid MATConversionKey:ckey];
+        [MobileAppTracker initializeWithMATAdvertiserId:aid MATConversionKey:ckey];
         [MobileAppTracker setPluginName:@"marmalade"];
     }
     else
@@ -93,46 +97,46 @@ void MATStartMobileAppTracker_platform(const char* adId, const char* convKey)
     }
 }
 
-void MATTrackSession_platform()
+void MATMeasureSession_platform()
 {
-    NSLog(@"Native: trackSession");
-    [MobileAppTracker trackSession];
+    NSLog(@"Native: measureSession");
+    [MobileAppTracker measureSession];
 }
 
-void MATTrackSessionWithReferenceId_platform(const char* refId)
+void MATMeasureAction_platform(const char* eventIdOrName)
 {
-    NSString *strRefId = NULL == refId ? nil : [NSString stringWithUTF8String:refId];
+    NSLog(@"Native: measureAction");
     
-    NSLog(@"Native: trackSessionWithRef: %@", strRefId);
-    [MobileAppTracker trackSessionWithReferenceId:strRefId];
+    NSString *strEventIdOrName = NULL == eventIdOrName ? nil : [NSString stringWithUTF8String:eventIdOrName];
+    
+    [MobileAppTracker measureAction:strEventIdOrName];
 }
 
-void MATTrackActionForEventIdOrName_platform(const char* eventIdOrName, const char* refId)
+void MATMeasureActionWithReferenceId_platform(const char* eventIdOrName, const char* refId)
 {
-    NSLog(@"Native: MATTrackActionForEventIdOrName");
+    NSLog(@"Native: measureActionWithReferenceId");
     
     NSString *strEventIdOrName = NULL == eventIdOrName ? nil : [NSString stringWithUTF8String:eventIdOrName];
     NSString *strRefId = NULL == refId ? nil : [NSString stringWithUTF8String:refId];
     
-    [MobileAppTracker trackActionForEventIdOrName:strEventIdOrName referenceId:strRefId];
+    [MobileAppTracker measureAction:strEventIdOrName referenceId:strRefId];
 }
 
-void MATTrackAction_platform(const char* eventIdOrName, const char* revenue, const char*  currencyCode)
+void MATMeasureActionWithRevenue_platform(const char* eventIdOrName, const char* refId, const char* revenue, const char* currencyCode)
 {
-    NSLog(@"Native: MATTrackAction");
+    NSLog(@"Native: measureActionWithRevenue");
     
     NSString *strEventIdOrName = NULL == eventIdOrName ? nil : [NSString stringWithUTF8String:eventIdOrName];
-    
+    NSString *strRefId = NULL == refId ? nil : [NSString stringWithUTF8String:refId];
     NSString *strRevenue = NULL == revenue ? nil : [NSString stringWithUTF8String:revenue];
-    
     NSString *strCurrencyCode = NULL == currencyCode ? nil : [NSString stringWithUTF8String:currencyCode];
 
-    [MobileAppTracker trackActionForEventIdOrName:strEventIdOrName
-                                    revenueAmount:[strRevenue floatValue]
-                                     currencyCode:strCurrencyCode];
+    [MobileAppTracker measureAction:strEventIdOrName
+                      revenueAmount:[strRevenue floatValue]
+                       currencyCode:strCurrencyCode];
 }
 
-void MATTrackActionForEventIdOrNameItems_platform(const char* eventIdOrName, const MATArray* items, const char* refId, const char* revenueAmount, const char* currencyCode, uint8 transactionState, const char* receipt, const char* receiptSignature)
+void MATMeasureActionWithItems_platform(const char* eventIdOrName, const MATArray* items, const char* refId, const char* revenueAmount, const char* currencyCode, uint8 transactionState, const char* receipt, const char* receiptSignature)
 {
     NSString *strEventIdOrName = NULL == eventIdOrName ? nil : [NSString stringWithUTF8String:eventIdOrName];
     NSString *strRefId = NULL == refId ? nil : [NSString stringWithUTF8String:refId];
@@ -141,7 +145,7 @@ void MATTrackActionForEventIdOrNameItems_platform(const char* eventIdOrName, con
     NSString *strReceipt = NULL == receipt ? nil : [NSString stringWithUTF8String:receipt];
     // iOS does not use the receiptSignature param, it's only for Android.
     
-    NSLog(@"Native: trackActionForEventIdOrNameItems");
+    NSLog(@"Native: measureActionWithItems");
     NSLog(@"eventName        = %@", strEventIdOrName);
     NSLog(@"refId            = %@", strRefId);
     NSLog(@"revenueAmount    = %@", strRevenueAmount);
@@ -186,15 +190,13 @@ void MATTrackActionForEventIdOrNameItems_platform(const char* eventIdOrName, con
         [array addObject:item];
     }
     
-    MATSDKDelegate *delegate = [[MATSDKDelegate alloc]init];
-    [MobileAppTracker setDelegate:delegate];
-    [MobileAppTracker trackActionForEventIdOrName:strEventIdOrName
-                                       eventItems:array
-                                      referenceId:strRefId
-                                    revenueAmount:[strRevenueAmount floatValue]
-                                     currencyCode:strCurrencyCode
-                                 transactionState:(int)transactionState
-                                          receipt:[strReceipt dataUsingEncoding:NSUTF8StringEncoding]];
+    [MobileAppTracker measureAction:strEventIdOrName
+                         eventItems:array
+                        referenceId:strRefId
+                      revenueAmount:[strRevenueAmount floatValue]
+                       currencyCode:strCurrencyCode
+                   transactionState:(int)transactionState
+                            receipt:[strReceipt dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
 void MATSetPackageName_platform(const char* packageName)
@@ -298,7 +300,7 @@ void MATSetEventAttribute5_platform(const char* attr)
     [MobileAppTracker setEventAttribute5:CreateNSString(attr)];
 }
 
-void MATSetGoogleAdvertisingId_platform(const char* googleId)
+void MATSetGoogleAdvertisingId_platform(const char* googleId, bool limitAdTracking)
 {
     // NOT IMPLEMENTED FOR iOS
 }
@@ -352,13 +354,23 @@ void MATSetGender_platform(int gender)
     [MobileAppTracker setGender:matGender];
 }
 
-void MATSetLocation_platform(const char* latitude, const char* longitude, const char* altitude)
+void MATSetLocation_platform(const char* latitude, const char* longitude)
+{
+	NSString *strLat = NULL == latitude ? nil : [NSString stringWithUTF8String:latitude];
+	NSString *strLong = NULL == longitude ? nil : [NSString stringWithUTF8String:longitude];
+	
+	NSLog(@"Native: setLocation = %@, %@", strLat, strLong);
+	
+    [MobileAppTracker setLatitude:[strLat floatValue] longitude:[strLong floatValue]];
+}
+
+void MATSetLocationWithAltitude_platform(const char* latitude, const char* longitude, const char* altitude)
 {
 	NSString *strLat = NULL == latitude ? nil : [NSString stringWithUTF8String:latitude];
 	NSString *strLong = NULL == longitude ? nil : [NSString stringWithUTF8String:longitude];
 	NSString *strAlt = NULL == altitude ? nil : [NSString stringWithUTF8String:altitude];
 	
-	NSLog(@"Native: setLocation = %@, %@, %@", strLat, strLong, strAlt);
+	NSLog(@"Native: setLocationWithAltitude = %@, %@, %@", strLat, strLong, strAlt);
 	
     [MobileAppTracker setLatitude:[strLat floatValue] longitude:[strLong floatValue] altitude:[strAlt floatValue]];
 }
@@ -403,6 +415,13 @@ void MATSetExistingUser_platform(bool isExisting)
     NSLog(@"Native: setExistingUser: %d", isExisting);
     
     [MobileAppTracker setExistingUser:isExisting];
+}
+
+void MATSetPayingUser_platform(bool isPaying)
+{
+    NSLog(@"Native: setPayingUser: %d", isPaying);
+    
+    [MobileAppTracker setPayingUser:isPaying];
 }
 
 void MATSetJailbroken_platform(bool isJailbroken)
@@ -459,9 +478,30 @@ void MATStartAppToAppTracking_platform(const char* targetAppId, const char* adve
     NSLog(@"Native: startAppToAppTracking: %@, %@, %@, %@, %d",
           strTargetAppId, strAdvertiserId, strOfferId, strPublisherId, shouldRedirect);
 
-    [MobileAppTracker setTracking:[NSString stringWithUTF8String:targetAppId]
-                                     advertiserId:[NSString stringWithUTF8String:advertiserId]
-                                          offerId:[NSString stringWithUTF8String:offerId]
-                                      publisherId:[NSString stringWithUTF8String:publisherId]
-                                         redirect:(BOOL)shouldRedirect];
+    [MobileAppTracker startAppToAppTracking:[NSString stringWithUTF8String:targetAppId]
+                               advertiserId:[NSString stringWithUTF8String:advertiserId]
+                                    offerId:[NSString stringWithUTF8String:offerId]
+                                publisherId:[NSString stringWithUTF8String:publisherId]
+                                   redirect:(BOOL)shouldRedirect];
+}
+
+bool MATGetIsPayingUser_platform()
+{
+    NSLog(@"Native: getIsPayingUser");
+    
+    return [MobileAppTracker isPayingUser];
+}
+
+const char* MATGetMatId_platform()
+{
+    NSLog(@"Native: getMatId");
+    
+    return [[MobileAppTracker matId] UTF8String];
+}
+
+const char* MATGetOpenLogId_platform()
+{
+    NSLog(@"Native: getOpenLogId");
+    
+    return [[MobileAppTracker openLogId] UTF8String];
 }
