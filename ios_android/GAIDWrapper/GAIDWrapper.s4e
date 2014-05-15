@@ -1,0 +1,28 @@
+include:
+#include <s3eTypes.h>
+
+typedef enum s3eGAIDCallback
+{
+    S3E_GAID_RECEIVED,
+    S3E_GAID_CALLBACK_MAX
+} s3eGAIDCallback;
+
+/**
+ * This struct stores Google Advertising Id information.
+ */
+typedef struct s3eGoogleAdvertisingIdInformation
+{
+    /**
+     * The device Google Advertising Id.
+     */
+    const char* m_Gaid;
+
+    /**
+     * Whether Limit Ad Tracking is enabled.
+     */
+    bool m_isLAT;
+
+} s3eGoogleAdvertisingIdInformation;
+
+functions:
+void GAIDGetGoogleAdvertisingId(s3eCallback cb) NULL run_on_os_thread

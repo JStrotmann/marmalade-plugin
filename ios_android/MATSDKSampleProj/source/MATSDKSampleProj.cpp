@@ -1,5 +1,6 @@
 #include "s3e.h"
 #include "s3eMATSDK.h"
+#include "GAIDWrapper.h"
 #include "IFAWrapper.h"
 #include <memory.h>
 #include <string.h>
@@ -53,6 +54,14 @@ bool isPointInButton(s3ePointerEvent* event, Button* button)
     return true;
 }
 
+// GAID callback function, called by Marmalade when the GAID is received
+static int32 SetGAID(void *systemData, void *userData)
+{
+    s3eGoogleAdvertisingIdInformation* adInfo = (s3eGoogleAdvertisingIdInformation*)systemData;
+    MATSetGoogleAdvertisingId(adInfo->m_Gaid, adInfo->m_isLAT);
+    return 0;
+}
+
 void SingleTouchButtonCB(s3ePointerEvent* event)
 {
     // Don't register press events, actions will occur on release.
@@ -66,6 +75,8 @@ void SingleTouchButtonCB(s3ePointerEvent* event)
         MATSetPackageName(g_package_name);
         MATSetSiteId(g_site_id);
         MATSetAppleAdvertisingIdentifier(IFAGetAppleAdvertisingIdentifier(), IFAGetIsAdvertisingTrackingEnabled());
+
+        GAIDGetGoogleAdvertisingId(&SetGAID);
         
         sprintf(g_TouchEventMsg, "`x666666 Initialize MAT with %s %s", g_package_name, g_site_id);
     }

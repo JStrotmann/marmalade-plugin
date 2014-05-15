@@ -1,0 +1,4 @@
+# Ignore build files
+build_gaidwrapper_android_java/
+build_gaidwrapper_android_linux_scons_arm/
+stamp/

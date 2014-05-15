@@ -1,0 +1,436 @@
+Archive member included because of file (symbol)
+
+C:\marmalade\7.1\s3e\edk\lib\android\libedk.a(edk_helpers.o)
+                              release\GAIDWrapper_platform.os (s3eEdkThreadRunOnOS)
+
+Discarded input sections
+
+ .text          0x00000000        0x0 C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+ .bss           0x00000000        0x0 C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+ .note.GNU-stack
+                0x00000000        0x0 C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+ _ZN7_JNIEnv14CallVoidMethodEP8_jobjectP10_jmethodIDz
+                0x00000000        0x0 release\GAIDWrapper_platform.os
+ _ZN7_JNIEnv9NewObjectEP7_jclassP10_jmethodIDz
+                0x00000000        0x0 release\GAIDWrapper_platform.os
+ .text          0x00000000        0x0 release\GAIDWrapper_platform.os
+ .data          0x00000000        0x0 release\GAIDWrapper_platform.os
+ .note.GNU-stack
+                0x00000000        0x0 release\GAIDWrapper_platform.os
+ .text          0x00000000        0x0 release\GAIDWrapper.os
+ .data          0x00000000        0x0 release\GAIDWrapper.os
+ .bss           0x00000000        0x0 release\GAIDWrapper.os
+ .note.GNU-stack
+                0x00000000        0x0 release\GAIDWrapper.os
+ .text          0x00000000        0x0 release\GAIDWrapper_register.os
+ .data          0x00000000        0x0 release\GAIDWrapper_register.os
+ .bss           0x00000000        0x0 release\GAIDWrapper_register.os
+ .text._Z22GAIDWrapperRegisterExtv
+                0x00000000        0x0 release\GAIDWrapper_register.os
+ .note.GNU-stack
+                0x00000000        0x0 release\GAIDWrapper_register.os
+ .text          0x00000000        0x0 C:\marmalade\7.1\s3e\edk\lib\android\libedk.a(edk_helpers.o)
+ .data          0x00000000        0x0 C:\marmalade\7.1\s3e\edk\lib\android\libedk.a(edk_helpers.o)
+ .bss           0x00000000        0x0 C:\marmalade\7.1\s3e\edk\lib\android\libedk.a(edk_helpers.o)
+ .text.s3eEdkThreadRunOnOSAsync
+                0x00000000        0x0 C:\marmalade\7.1\s3e\edk\lib\android\libedk.a(edk_helpers.o)
+ .text.s3eEdkErrorSetString
+                0x00000000        0x0 C:\marmalade\7.1\s3e\edk\lib\android\libedk.a(edk_helpers.o)
+ .note.GNU-stack
+                0x00000000        0x0 C:\marmalade\7.1\s3e\edk\lib\android\libedk.a(edk_helpers.o)
+ .text          0x00000000        0x0 C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtend_so.o
+ .data          0x00000000        0x0 C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtend_so.o
+ .bss           0x00000000        0x0 C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtend_so.o
+ .note.GNU-stack
+                0x00000000        0x0 C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtend_so.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+LOAD release\GAIDWrapper_platform.os
+LOAD release\GAIDWrapper.os
+LOAD release\GAIDWrapper_register.os
+LOAD C:\marmalade\7.1\s3e\edk\lib\android\libedk.a
+LOAD C:\marmalade\7.1\s3e\edk\lib\android/libplaceholderplaceholderplaceholderplaceholderplaceholder.so
+LOAD C:\Users\John\tools\android-ndk-r8c\platforms\android-9\arch-arm\usr\lib/liblog.so
+LOAD C:\Users\John\tools\android-ndk-r8c\sources\cxx-stl\gnu-libstdc++\4.4.3\libs\armeabi\libgnustl_static.a
+LOAD c:/Users/John/tools/android-ndk-r8c/toolchains/arm-linux-androideabi-4.4.3/prebuilt/windows/bin/../lib/gcc/arm-linux-androideabi/4.4.3\libgcc.a
+LOAD C:\Users\John\tools\android-ndk-r8c\platforms\android-9\arch-arm\usr\lib/libstdc++.so
+LOAD C:\Users\John\tools\android-ndk-r8c\platforms\android-9\arch-arm\usr\lib/libm.so
+LOAD C:\Users\John\tools\android-ndk-r8c\platforms\android-9\arch-arm\usr\lib/libc.so
+LOAD c:/Users/John/tools/android-ndk-r8c/toolchains/arm-linux-androideabi-4.4.3/prebuilt/windows/bin/../lib/gcc/arm-linux-androideabi/4.4.3\libgcc.a
+LOAD C:\Users\John\tools\android-ndk-r8c\platforms\android-9\arch-arm\usr\lib/libc.so
+LOAD C:\Users\John\tools\android-ndk-r8c\platforms\android-9\arch-arm\usr\lib/libdl.so
+LOAD c:/Users/John/tools/android-ndk-r8c/toolchains/arm-linux-androideabi-4.4.3/prebuilt/windows/bin/../lib/gcc/arm-linux-androideabi/4.4.3\libgcc.a
+LOAD C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtend_so.o
+                0x000000d4                . = (0x0 + SIZEOF_HEADERS)
+
+.note.gnu.build-id
+ *(.note.gnu.build-id)
+
+.hash           0x000000d4       0xa8
+ *(.hash)
+ .hash          0x000000d4       0xa8 C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+
+.gnu.hash
+ *(.gnu.hash)
+
+.dynsym         0x0000017c      0x170
+ *(.dynsym)
+ .dynsym        0x0000017c      0x170 C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+
+.dynstr         0x000002ec      0x15d
+ *(.dynstr)
+ .dynstr        0x000002ec      0x15d C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+
+.gnu.version    0x0000044a        0x0 load address 0x00000449
+ *(.gnu.version)
+ .gnu.version   0x00000000        0x0 C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+
+.gnu.version_d  0x0000044c        0x0 load address 0x00000449
+ *(.gnu.version_d)
+ .gnu.version_d
+                0x00000000        0x0 C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+
+.gnu.version_r  0x0000044c        0x0 load address 0x00000449
+ *(.gnu.version_r)
+ .gnu.version_r
+                0x00000000        0x0 C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+
+.rel.dyn        0x0000044c       0x38
+ *(.rel.init)
+ *(.rel.text .rel.text.* .rel.gnu.linkonce.t.*)
+ *(.rel.fini)
+ *(.rel.rodata .rel.rodata.* .rel.gnu.linkonce.r.*)
+ *(.rel.data.rel.ro* .rel.gnu.linkonce.d.rel.ro.*)
+ .rel.data.rel.ro
+                0x0000044c       0x18 C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+ *(.rel.data .rel.data.* .rel.gnu.linkonce.d.*)
+ *(.rel.tdata .rel.tdata.* .rel.gnu.linkonce.td.*)
+ *(.rel.tbss .rel.tbss.* .rel.gnu.linkonce.tb.*)
+ *(.rel.ctors)
+ *(.rel.dtors)
+ *(.rel.got)
+ .rel.got       0x00000464       0x18 C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+ *(.rel.bss .rel.bss.* .rel.gnu.linkonce.b.*)
+ .rel.fini_array
+                0x0000047c        0x8 C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+
+.rela.dyn
+ *(.rela.init)
+ *(.rela.text .rela.text.* .rela.gnu.linkonce.t.*)
+ *(.rela.fini)
+ *(.rela.rodata .rela.rodata.* .rela.gnu.linkonce.r.*)
+ *(.rela.data .rela.data.* .rela.gnu.linkonce.d.*)
+ *(.rela.tdata .rela.tdata.* .rela.gnu.linkonce.td.*)
+ *(.rela.tbss .rela.tbss.* .rela.gnu.linkonce.tb.*)
+ *(.rela.ctors)
+ *(.rela.dtors)
+ *(.rela.got)
+ *(.rela.bss .rela.bss.* .rela.gnu.linkonce.b.*)
+
+.rel.plt        0x00000484       0x30
+ *(.rel.plt)
+ .rel.plt       0x00000484       0x30 C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+
+.rela.plt
+ *(.rela.plt)
+
+.init
+ *(.init)
+
+.plt            0x000004b4       0x5c
+ *(.plt)
+ .plt           0x000004b4       0x5c C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+
+.text           0x00000510      0x460
+ *(.text .stub .text.* .gnu.linkonce.t.*)
+ .text.exit     0x00000510       0x10 C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+                0x00000510                __on_dlclose
+ .text._Z29GAIDWrapperTerminate_platformv
+                0x00000520        0x4 release\GAIDWrapper_platform.os
+                0x00000520                GAIDWrapperTerminate_platform()
+ .text._Z21native_onGAIDCallbackP7_JNIEnvP8_jobjectP8_jstringh
+                0x00000524       0x64 release\GAIDWrapper_platform.os
+                0x00000524                native_onGAIDCallback(_JNIEnv*, _jobject*, _jstring*, unsigned char)
+ .text._ZN7_JNIEnv14CallVoidMethodEP8_jobjectP10_jmethodIDz
+                0x00000588       0x34 release\GAIDWrapper_platform.os
+                0x00000588                _JNIEnv::CallVoidMethod(_jobject*, _jmethodID*, ...)
+ .text._ZN7_JNIEnv9NewObjectEP7_jclassP10_jmethodIDz
+                0x000005bc       0x34 release\GAIDWrapper_platform.os
+                0x000005bc                _JNIEnv::NewObject(_jclass*, _jmethodID*, ...)
+ .text._Z24GAIDWrapperInit_platformv
+                0x000005f0      0x198 release\GAIDWrapper_platform.os
+                0x000005f0                GAIDWrapperInit_platform()
+ .text._Z35GAIDGetGoogleAdvertisingId_platformPFiPvS_E
+                0x00000788       0x78 release\GAIDWrapper_platform.os
+                0x00000788                GAIDGetGoogleAdvertisingId_platform(int (*)(void*, void*))
+ .text._ZL27s3eEdkAndroidFindClass_realPKc
+                0x00000800       0xb8 release\GAIDWrapper_platform.os
+ .text.GAIDGetGoogleAdvertisingId
+                0x000008b8        0x4 release\GAIDWrapper.os
+                0x000008b8                GAIDGetGoogleAdvertisingId
+ .text._Z20GAIDWrapperTerminatev
+                0x000008bc        0x4 release\GAIDWrapper.os
+                0x000008bc                GAIDWrapperTerminate()
+ .text._Z15GAIDWrapperInitv
+                0x000008c0        0x4 release\GAIDWrapper.os
+                0x000008c0                GAIDWrapperInit()
+ .text._ZL31GAIDGetGoogleAdvertisingId_wrapPFiPvS_E
+                0x000008c4       0x18 release\GAIDWrapper_register.os
+ .text.RegisterExt
+                0x000008dc       0x64 release\GAIDWrapper_register.os
+                0x000008dc                RegisterExt
+ .text.s3eEdkThreadRunOnOS
+                0x00000940       0x30 C:\marmalade\7.1\s3e\edk\lib\android\libedk.a(edk_helpers.o)
+                0x00000940                s3eEdkThreadRunOnOS
+ *(.gnu.warning)
+ *(.glue_7t)
+ .glue_7t       0x00000000        0x0 linker stubs
+ *(.glue_7)
+ .glue_7        0x00000000        0x0 linker stubs
+ *(.vfp11_veneer)
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+ *(.v4_bx)
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.fini
+ *(.fini)
+                0x00000970                PROVIDE (__etext, .)
+                0x00000970                PROVIDE (_etext, .)
+                0x00000970                PROVIDE (etext, .)
+
+.rodata         0x00000970       0x64
+ *(.rodata .rodata.* .gnu.linkonce.r.*)
+ .rodata.str1.4
+                0x00000970       0x64 release\GAIDWrapper_platform.os
+ .rodata.str1.4
+                0x00000000        0xc release\GAIDWrapper_register.os
+
+.rodata1
+ *(.rodata1)
+
+.ARM.extab
+ *(.ARM.extab* .gnu.linkonce.armextab.*)
+                0x000009d4                __exidx_start = .
+
+.ARM.exidx
+ *(.ARM.exidx* .gnu.linkonce.armexidx.*)
+                0x000009d4                __exidx_end = .
+
+.eh_frame_hdr
+ *(.eh_frame_hdr)
+
+.eh_frame
+ *(.eh_frame)
+
+.gcc_except_table
+ *(.gcc_except_table .gcc_except_table.*)
+                0x000009d4                . = (ALIGN (0x1000) - ((0x1000 - .) & 0xfff))
+                0x00001ee0                . = (0x1000 DATA_SEGMENT_ALIGN 0x1000)
+
+.eh_frame
+ *(.eh_frame)
+
+.gcc_except_table
+ *(.gcc_except_table .gcc_except_table.*)
+
+.tdata
+ *(.tdata .tdata.* .gnu.linkonce.td.*)
+
+.tbss
+ *(.tbss .tbss.* .gnu.linkonce.tb.*)
+ *(.tcommon)
+
+.preinit_array
+ *(.preinit_array)
+
+.init_array     0x00001ee0        0x4
+ *(SORT(.init_array.*))
+ *(.init_array)
+ .init_array    0x00001ee0        0x4 C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtend_so.o
+
+.fini_array     0x00001ee4        0x8
+ *(.fini_array)
+ .fini_array    0x00001ee4        0x4 C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+ .fini_array    0x00001ee8        0x4 C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtend_so.o
+ *(SORT(.fini_array.*))
+
+.ctors
+ *crtbegin.o(.ctors)
+ *crtbegin?.o(.ctors)
+ *(EXCLUDE_FILE(*crtend?.o *crtend.o) .ctors)
+ *(SORT(.ctors.*))
+ *(.ctors)
+
+.dtors
+ *crtbegin.o(.dtors)
+ *crtbegin?.o(.dtors)
+ *(EXCLUDE_FILE(*crtend?.o *crtend.o) .dtors)
+ *(SORT(.dtors.*))
+ *(.dtors)
+
+.jcr
+ *(.jcr)
+
+.data.rel.ro    0x00001eec        0xc
+ *(.data.rel.ro.local* .gnu.linkonce.d.rel.ro.local.*)
+ *(.data.rel.ro* .gnu.linkonce.d.rel.ro.*)
+ .data.rel.ro   0x00001eec        0xc release\GAIDWrapper_platform.os
+
+.dynamic        0x00001ef8       0xd8
+ *(.dynamic)
+ .dynamic       0x00001ef8       0xd8 C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+                0x00001ef8                _DYNAMIC
+
+.got            0x00001fd0       0x30
+ *(.got.plt)
+ .got.plt       0x00001fd0       0x24 C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+                0x00001fd0                _GLOBAL_OFFSET_TABLE_
+ *(.got)
+ .got           0x00001ff4        0xc C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+                0x00002000                . = (. DATA_SEGMENT_RELRO_END 0x0)
+
+.data           0x00002000        0x4
+                0x00002000                __data_start = .
+ *(.data .data.* .gnu.linkonce.d.*)
+ .data          0x00002000        0x4 C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+                0x00002000                __dso_handle
+
+.data1
+ *(.data1)
+                0x00002004                _edata = .
+                0x00002004                PROVIDE (edata, .)
+                0x00002004                __bss_start = .
+                0x00002004                __bss_start__ = .
+
+.bss            0x00002004        0x8
+ *(.dynbss)
+ .dynbss        0x00000000        0x0 C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+ *(.bss .bss.* .gnu.linkonce.b.*)
+ .bss           0x00002004        0x8 release\GAIDWrapper_platform.os
+ *(COMMON)
+                0x0000200c                . = ALIGN ((. != 0x0)?0x4:0x1)
+                0x0000200c                _bss_end__ = .
+                0x0000200c                __bss_end__ = .
+                0x0000200c                . = ALIGN (0x4)
+                0x0000200c                . = ALIGN (0x4)
+                0x0000200c                __end__ = .
+                0x0000200c                _end = .
+                0x0000200c                PROVIDE (end, .)
+                0x0000200c                . = DATA_SEGMENT_END (.)
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment        0x00000000       0x6d
+ *(.comment)
+ .comment       0x00000000       0x25 C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+                                 0x26 (size before relaxing)
+ .comment       0x00000025       0x12 release\GAIDWrapper_platform.os
+ .comment       0x00000037       0x12 release\GAIDWrapper.os
+ .comment       0x00000049       0x12 release\GAIDWrapper_register.os
+ .comment       0x0000005b       0x12 C:\marmalade\7.1\s3e\edk\lib\android\libedk.a(edk_helpers.o)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges
+ *(.debug_aranges)
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info
+ *(.debug_info .gnu.linkonce.wi.*)
+
+.debug_abbrev
+ *(.debug_abbrev)
+
+.debug_line
+ *(.debug_line)
+
+.debug_frame
+ *(.debug_frame)
+
+.debug_str
+ *(.debug_str)
+
+.debug_loc
+ *(.debug_loc)
+
+.debug_macinfo
+ *(.debug_macinfo)
+
+.debug_weaknames
+ *(.debug_weaknames)
+
+.debug_funcnames
+ *(.debug_funcnames)
+
+.debug_typenames
+ *(.debug_typenames)
+
+.debug_varnames
+ *(.debug_varnames)
+
+.debug_pubtypes
+ *(.debug_pubtypes)
+
+.debug_ranges
+ *(.debug_ranges)
+
+.gnu.attributes
+ *(.gnu.attributes)
+
+.note.gnu.arm.ident
+ *(.note.gnu.arm.ident)
+
+/DISCARD/
+ *(.note.GNU-stack)
+ *(.gnu_debuglink)
+OUTPUT(C:\Users\John\Documents\GitHub\sdk\sdk-marmalade\ios_android\GAIDWrapper\lib\android\libGAIDWrapper.so elf32-littlearm)
+
+.ARM.attributes
+                0x00000000       0x31
+ .ARM.attributes
+                0x00000000       0x2d C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtbegin_so.o
+ .ARM.attributes
+                0x0000002d       0x2b release\GAIDWrapper_platform.os
+ .ARM.attributes
+                0x00000058       0x2b release\GAIDWrapper.os
+ .ARM.attributes
+                0x00000083       0x2b release\GAIDWrapper_register.os
+ .ARM.attributes
+                0x000000ae       0x2b C:\marmalade\7.1\s3e\edk\lib\android\libedk.a(edk_helpers.o)
+ .ARM.attributes
+                0x000000d9       0x1f C:/Users/John/tools/android-ndk-r8c/platforms/android-9/arch-arm/usr/lib/crtend_so.o

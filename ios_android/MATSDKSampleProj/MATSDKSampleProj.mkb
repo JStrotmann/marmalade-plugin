@@ -17,6 +17,7 @@ files
 subprojects
 {
     s3eMATSDK
+    GAIDWrapper
     IFAWrapper
     iwutil
     ExamplesMain
