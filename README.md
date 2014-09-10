@@ -2,7 +2,7 @@
 
 Please see the Quick Start guide here:
 
-[Marmalade Quick Start](http://support.mobileapptracking.com/entries/26456960)
+[Marmalade Quick Start](https://developers.mobileapptracking.com/marmalade-plugin/)
 
 ### Change/Edit the Marmalade MAT Extension
 
