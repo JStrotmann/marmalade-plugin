@@ -13,10 +13,10 @@ from os.path import join
 
 SetOption("implicit_cache" ,1)
 
-target_name = '/Users/harshal/Desktop/tempMarmalade/newIFAWrapper/IFAWrapper/lib/iphone/libIFAWrapper.a'
-target_name_debug = '/Users/harshal/Desktop/tempMarmalade/newIFAWrapper/IFAWrapper/lib/iphone/libIFAWrapper_d.a'
-target_name_rvct = '/Users/harshal/Desktop/tempMarmalade/newIFAWrapper/IFAWrapper/lib/iphone/libIFAWrapper.a'
-target_name_debug_rvct = '/Users/harshal/Desktop/tempMarmalade/newIFAWrapper/IFAWrapper/lib/iphone/libIFAWrapper_d.a'
+target_name = '/Users/harshal/projects/sdk-master/sdk-marmalade/ios_android/IFAWrapper/lib/iphone/libIFAWrapper.a'
+target_name_debug = '/Users/harshal/projects/sdk-master/sdk-marmalade/ios_android/IFAWrapper/lib/iphone/libIFAWrapper_d.a'
+target_name_rvct = '/Users/harshal/projects/sdk-master/sdk-marmalade/ios_android/IFAWrapper/lib/iphone/libIFAWrapper.a'
+target_name_debug_rvct = '/Users/harshal/projects/sdk-master/sdk-marmalade/ios_android/IFAWrapper/lib/iphone/libIFAWrapper_d.a'
 sdk_root = '/Applications/Marmalade.app/Contents'
 
 scons_version = SCons.__version__.split(".")[:2]
@@ -235,26 +235,26 @@ if compiler == 'rvct':
     else:
         env.Append(CCFLAGS=['-Otime', '-O3', '--preinclude=temp_defines_release.h'])
         env.Append(LINKFLAGS=[])
-    env.Append(CCFLAGS=['--split_sections', '--diag_remark=1,9,111,128,174,177,196,381,550,611,815,1293,1294,1295,1299,1300,1304,3052', '--no_exceptions', '--apcs=/interwork', '--cpu=7-A'])
+    env.Append(CCFLAGS=['--split_sections', '--diag_remark=1,9,111,128,174,177,196,381,550,611,815,1293,1294,1295,1299,1300,1304,3052', '--no_exceptions', '--apcs=/interwork'])
     env.Append(CFLAGS=[])
     env.Append(CXXFLAGS=['--cpp'])
     env['ARFLAGS'] = ['--create']
-    env['ASFLAGS'] = ['-g', '--apcs=/interwork', '--cpu=7-A']
+    env['ASFLAGS'] = ['-g', '--apcs=/interwork']
     env['ASPPFLAGS'] = []
     env['STRIPFLAGS'] = []
     env['CXXCOM'] = '$CXX -o $TARGET -c $CCFLAGS $CXXFLAGS $_CCCOMCOM $SOURCES'
     env['SHCCFLAGS'] = SCons.Util.CLVar('$CCFLAGS -fPIC')
 
 else:
-    env.Append(LINKFLAGS=['-arch', 'armv7', '-dead_strip', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk', '-miphoneos-version-min=4.3'])
+    env.Append(LINKFLAGS=['-arch', 'armv7', '-dead_strip', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk', '-miphoneos-version-min=4.3'])
     if env['debug']:
         env.Append(CCFLAGS=['-g', '-O0', '-include', 'temp_defines_debug.h'])
-        env.Append(LINKFLAGS=['-Wl,-map', '-Wl,/Users/harshal/Desktop/tempMarmalade/newIFAWrapper/IFAWrapper/lib/iphone/libIFAWrapper_d.map'])
+        env.Append(LINKFLAGS=['-Wl,-map', '-Wl,/Users/harshal/projects/sdk-master/sdk-marmalade/ios_android/IFAWrapper/lib/iphone/libIFAWrapper_d.map'])
         env.Append(PLFLAGS=[])
     else:
         env.Append(CCFLAGS=['-O3', '-include', 'temp_defines_release.h'])
-        env.Append(LINKFLAGS=['-Wl,-S', '-Wl,-x', '-Wl,-map', '-Wl,/Users/harshal/Desktop/tempMarmalade/newIFAWrapper/IFAWrapper/lib/iphone/libIFAWrapper.map'])
-    env.Append(CCFLAGS=['-fsigned-char', '-fno-strict-aliasing', '-Wall', '-fomit-frame-pointer', '-fmessage-length=0', '-Wno-unused', '-Wno-parentheses', '-Wno-format-security', '-arch', 'armv7', '-miphoneos-version-min=4.3', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk', '-funsigned-char', '-fvisibility=default', '-gdwarf-2', '-mno-thumb', '-fPIC'])
+        env.Append(LINKFLAGS=['-Wl,-S', '-Wl,-map', '-Wl,/Users/harshal/projects/sdk-master/sdk-marmalade/ios_android/IFAWrapper/lib/iphone/libIFAWrapper.map'])
+    env.Append(CCFLAGS=['-fsigned-char', '-fno-strict-aliasing', '-fno-builtin', '-Wall', '-fomit-frame-pointer', '-fmessage-length=0', '-Wno-unused', '-Wno-parentheses', '-Wno-format-security', '-arch', 'armv7', '-mfpu=vfpv3', '-mfloat-abi=softfp', '-mno-thumb', '-miphoneos-version-min=4.3', '-isysroot', '/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk', '-funsigned-char', '-fvisibility=default', '-gdwarf-2', '-fPIC'])
     env.Append(CFLAGS=['-std=gnu99'])
     env.Append(CXXFLAGS=['-fno-exceptions', '-fvisibility-inlines-hidden'])
     env['ARFLAGS'] = ['rc']
@@ -301,7 +301,7 @@ if compiler == 'rvct':
     env['AS']     = ''
     env['STRIP']  = ''
     env['RANLIB'] = ''
-else:
+elif compiler == 'clang':
     # Emitter specified tools:
     env['CC']     = 'clang'
     env['CXX']    = 'clang++'
@@ -310,6 +310,15 @@ else:
     env['AS']     = 'as'
     env['STRIP']  = 'strip'
     env['RANLIB'] = 'ranlib'
+else:
+    # Emitter specified tools:
+    env['CC']     = ''
+    env['CXX']    = ''
+    env['LINK']   = ''
+    env['AR']     = ''
+    env['AS']     = ''
+    env['STRIP']  = ''
+    env['RANLIB'] = ''
 
 # compiler settings for all ARM targets
 env['FROMELF'] = 'fromelf'
@@ -422,11 +431,6 @@ if compiler != 'rvct':
     remove(vfp_env, 'ASFLAGS', '-msoft-float')
     remove(vfp_env, 'CCFLAGS', '-mthumb')
     remove(vfp_env, 'CCFLAGS', '--thumb')
-
-    if '-mfpu=vfp' not in vfp_env['CCFLAGS']:
-        vfp_env.Append(CCFLAGS='-mfpu=vfp')
-    if '-mfpu=vfp' not in vfp_env['ASFLAGS']:
-        vfp_env.Append(ASFLAGS='-mfpu=vfp')
 
 if compiler == "rvct":
     if '--thumb' not in thumb_env['CCFLAGS']:

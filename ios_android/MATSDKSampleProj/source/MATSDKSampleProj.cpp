@@ -78,7 +78,7 @@ void SingleTouchButtonCB(s3ePointerEvent* event)
 
         GAIDGetGoogleAdvertisingId(&SetGAID);
         
-        sprintf(g_TouchEventMsg, "`x666666 Initialize MAT with %s %s", g_package_name, g_site_id);
+        sprintf(g_TouchEventMsg, "`x666666 Initialize MAT with %s, %s", g_package_name, g_site_id);
     }
     else if (isPointInButton(event, btnSetDelegate))
     {
@@ -229,15 +229,15 @@ void ExampleInit()
     s3ePointerRegister(S3E_POINTER_MOTION_EVENT, (s3eCallback)SingleTouchMotionCB, NULL);
     
     // Init buttons.
-    btnInit = NewButton("Start MAT SDK");
-    btnSetDelegate = NewButton("Set Delegate");
-    btnSetDebugMode = NewButton("Set Debug Mode");
-    btnSetAllowDups = NewButton("Set Allow Duplicates");
-    btnSession = NewButton("Measure Session");
-    btnActionWithRef = NewButton("Measure Event With Ref");
-    btnActionWithItems = NewButton("Measure Event Items");
-    btnSetter = NewButton("Test Setter Methods");
-    btnGetter = NewButton("Test Getter Methods");
+    btnInit             = NewButton("Start MAT SDK");
+    btnSetDelegate      = NewButton("Set Delegate");
+    btnSetDebugMode     = NewButton("Set Debug Mode");
+    btnSetAllowDups     = NewButton("Set Allow Duplicates");
+    btnSession          = NewButton("Measure Session");
+    btnActionWithRef    = NewButton("Measure Event With Ref");
+    btnActionWithItems  = NewButton("Measure Event Items");
+    btnSetter           = NewButton("Test Setter Methods");
+    btnGetter           = NewButton("Test Getter Methods");
     
     int32 osInt = s3eDeviceGetInt(S3E_DEVICE_OS);
     if (osInt == S3E_OS_ID_ANDROID)

@@ -22,18 +22,18 @@ void IFAWrapperTerminate_platform()
 
 const char* IFAGetAppleAdvertisingIdentifier_platform()
 {
-    NSLog(@"IFA: ifa = %@", [[ASIdentifierManager sharedManager] advertisingIdentifier]);
+//    NSLog(@"IFA: ifa = %@", [[ASIdentifierManager sharedManager] advertisingIdentifier]);
     
     NSString *strIFA = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
     
-    const char *ifa = strIFA ? [strIFA UTF8String] : NULL;
+    const char *ifa = strIFA ? strdup([strIFA UTF8String]) : NULL;
     
     return ifa;
 }
 
 bool IFAGetIsAdvertisingTrackingEnabled_platform()
 {
-    NSLog(@"IFA: trackingEnabled = %d", [[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]);
+//    NSLog(@"IFA: trackingEnabled = %d", [[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]);
     
     return [[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled];
 }

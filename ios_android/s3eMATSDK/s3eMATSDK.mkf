@@ -38,7 +38,7 @@ deployments
 {
     #iphone-link-opts="-framework X" #Use this to bring in any additional link options needed
     iphone-link-libs="s3eMATSDK "
-    iphone-link-opts="-framework SystemConfiguration -framework iAd -framework CoreTelephony -framework MobileCoreServices "
+    iphone-link-opts="-framework CoreTelephony -framework iAd -framework MobileCoreServices -framework SystemConfiguration"
     iphone-link-libdirs=lib/iphone
 }
 

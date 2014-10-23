@@ -56,7 +56,7 @@ void IFAWrapperRegisterExt()
     /*
      * Register the extension
      */
-    s3eEdkRegister("IFAWrapper", funcPtrs, sizeof(funcPtrs), flags, IFAWrapperInit, IFAWrapperTerminate, 0);
+s3eEdkRegister("IFAWrapper", funcPtrs, sizeof(funcPtrs), flags, IFAWrapperInit, IFAWrapperTerminate, 0);
 }
 
 #if !defined S3E_BUILD_S3ELOADER

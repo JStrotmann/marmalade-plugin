@@ -11,4 +11,12 @@
 #define S3E_EXT_IFAWRAPPER_NAME "IFAWrapper"
 #define S3E_EXT_IFAWRAPPER_HASH 0xa5e30816
 
+#ifdef S3E_EXT_REGISTER
+#ifndef S3E_EXT_REGISTER_KEY
+#define S3E_EXT_REGISTER_KEY(name, num, key) S3E_EXT_REGISTER(name, num)
+#endif
+S3E_EXT_REGISTER("IFAWrapper", 2)
+#else
+
+#endif /* S3E_EXT_REGISTER */
 #endif /* !IFAWRAPPER_AUTODEFS_H */
