@@ -23,6 +23,7 @@
  * Definitions for functions types passed to/from s3eExt interface
  */
 typedef       void(*MATStartMobileAppTracker_t)(const char* adId, const char* convKey);
+typedef       void(*MATCheckForDeferredDeeplink_t)(const char* timeout, s3eCallback function);
 typedef       void(*MATMeasureSession_t)();
 typedef       void(*MATMeasureAction_t)(const char* eventIdOrName);
 typedef       void(*MATMeasureActionWithReferenceId_t)(const char* eventIdOrName, const char* refId);
@@ -46,7 +47,16 @@ typedef       void(*MATSetEventAttribute2_t)(const char* attr);
 typedef       void(*MATSetEventAttribute3_t)(const char* attr);
 typedef       void(*MATSetEventAttribute4_t)(const char* attr);
 typedef       void(*MATSetEventAttribute5_t)(const char* attr);
+typedef       void(*MATSetEventContentType_t)(const char* contentType);
+typedef       void(*MATSetEventContentId_t)(const char* contentId);
+typedef       void(*MATSetEventLevel_t)(int level);
+typedef       void(*MATSetEventQuantity_t)(int quantity);
+typedef       void(*MATSetEventSearchString_t)(const char* searchString);
+typedef       void(*MATSetEventRating_t)(const char * rating);
+typedef       void(*MATSetEventDate1_t)(const char* date);
+typedef       void(*MATSetEventDate2_t)(const char* date);
 typedef       void(*MATSetExistingUser_t)(bool isExisting);
+typedef       void(*MATSetFacebookEventLogging_t)(bool enable, bool limitUsage);
 typedef       void(*MATSetPayingUser_t)(bool isPaying);
 typedef       void(*MATSetJailbroken_t)(bool isJailbroken);
 typedef       void(*MATSetShouldAutoDetectJailbroken_t)(bool shouldAutoDetect);
@@ -72,6 +82,7 @@ typedef       void(*MATSetAllowDuplicates_t)(bool allowDuplicates);
 typedef struct s3eMATSDKFuncs
 {
     MATStartMobileAppTracker_t m_MATStartMobileAppTracker;
+    MATCheckForDeferredDeeplink_t m_MATCheckForDeferredDeeplink;
     MATMeasureSession_t m_MATMeasureSession;
     MATMeasureAction_t m_MATMeasureAction;
     MATMeasureActionWithReferenceId_t m_MATMeasureActionWithReferenceId;
@@ -95,7 +106,16 @@ typedef struct s3eMATSDKFuncs
     MATSetEventAttribute3_t m_MATSetEventAttribute3;
     MATSetEventAttribute4_t m_MATSetEventAttribute4;
     MATSetEventAttribute5_t m_MATSetEventAttribute5;
+    MATSetEventContentType_t m_MATSetEventContentType;
+    MATSetEventContentId_t m_MATSetEventContentId;
+    MATSetEventLevel_t m_MATSetEventLevel;
+    MATSetEventQuantity_t m_MATSetEventQuantity;
+    MATSetEventSearchString_t m_MATSetEventSearchString;
+    MATSetEventRating_t m_MATSetEventRating;
+    MATSetEventDate1_t m_MATSetEventDate1;
+    MATSetEventDate2_t m_MATSetEventDate2;
     MATSetExistingUser_t m_MATSetExistingUser;
+    MATSetFacebookEventLogging_t m_MATSetFacebookEventLogging;
     MATSetPayingUser_t m_MATSetPayingUser;
     MATSetJailbroken_t m_MATSetJailbroken;
     MATSetShouldAutoDetectJailbroken_t m_MATSetShouldAutoDetectJailbroken;
@@ -179,9 +199,29 @@ void MATStartMobileAppTracker(const char* adId, const char* convKey)
     return;
 }
 
+void MATCheckForDeferredDeeplink(const char* timeout, s3eCallback function)
+{
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[1] func: MATCheckForDeferredDeeplink"));
+
+    if (!_extLoad())
+        return;
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+#endif
+
+    g_Ext.m_MATCheckForDeferredDeeplink(timeout, function);
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+#endif
+
+    return;
+}
+
 void MATMeasureSession()
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[1] func: MATMeasureSession"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[2] func: MATMeasureSession"));
 
     if (!_extLoad())
         return;
@@ -201,7 +241,7 @@ void MATMeasureSession()
 
 void MATMeasureAction(const char* eventIdOrName)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[2] func: MATMeasureAction"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[3] func: MATMeasureAction"));
 
     if (!_extLoad())
         return;
@@ -221,7 +261,7 @@ void MATMeasureAction(const char* eventIdOrName)
 
 void MATMeasureActionWithReferenceId(const char* eventIdOrName, const char* refId)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[3] func: MATMeasureActionWithReferenceId"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[4] func: MATMeasureActionWithReferenceId"));
 
     if (!_extLoad())
         return;
@@ -241,7 +281,7 @@ void MATMeasureActionWithReferenceId(const char* eventIdOrName, const char* refI
 
 void MATMeasureActionWithRevenue(const char* eventIdOrName, const char* refId, const char* revenueAmount, const char* currencyCode)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[4] func: MATMeasureActionWithRevenue"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[5] func: MATMeasureActionWithRevenue"));
 
     if (!_extLoad())
         return;
@@ -261,7 +301,7 @@ void MATMeasureActionWithRevenue(const char* eventIdOrName, const char* refId, c
 
 void MATMeasureActionWithItems(const char* eventIdOrName, const MATArray* items, const char* refId, const char* revenueAmount, const char* currencyCode, uint8 transactionState, const char* receipt, const char* receiptSignature)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[5] func: MATMeasureActionWithItems"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[6] func: MATMeasureActionWithItems"));
 
     if (!_extLoad())
         return;
@@ -281,7 +321,7 @@ void MATMeasureActionWithItems(const char* eventIdOrName, const MATArray* items,
 
 void MATSetPackageName(const char* packageName)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[6] func: MATSetPackageName"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[7] func: MATSetPackageName"));
 
     if (!_extLoad())
         return;
@@ -301,7 +341,7 @@ void MATSetPackageName(const char* packageName)
 
 void MATSetCurrencyCode(const char* currencyCode)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[7] func: MATSetCurrencyCode"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[8] func: MATSetCurrencyCode"));
 
     if (!_extLoad())
         return;
@@ -321,7 +361,7 @@ void MATSetCurrencyCode(const char* currencyCode)
 
 void MATSetUserEmail(const char* userEmail)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[8] func: MATSetUserEmail"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[9] func: MATSetUserEmail"));
 
     if (!_extLoad())
         return;
@@ -341,7 +381,7 @@ void MATSetUserEmail(const char* userEmail)
 
 void MATSetUserId(const char* userId)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[9] func: MATSetUserId"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[10] func: MATSetUserId"));
 
     if (!_extLoad())
         return;
@@ -361,7 +401,7 @@ void MATSetUserId(const char* userId)
 
 void MATSetUserName(const char* userName)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[10] func: MATSetUserName"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[11] func: MATSetUserName"));
 
     if (!_extLoad())
         return;
@@ -381,7 +421,7 @@ void MATSetUserName(const char* userName)
 
 void MATSetFacebookUserId(const char* userFacebookId)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[11] func: MATSetFacebookUserId"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[12] func: MATSetFacebookUserId"));
 
     if (!_extLoad())
         return;
@@ -401,7 +441,7 @@ void MATSetFacebookUserId(const char* userFacebookId)
 
 void MATSetTwitterUserId(const char* userTwitterId)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[12] func: MATSetTwitterUserId"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[13] func: MATSetTwitterUserId"));
 
     if (!_extLoad())
         return;
@@ -421,7 +461,7 @@ void MATSetTwitterUserId(const char* userTwitterId)
 
 void MATSetGoogleUserId(const char* userGoogleId)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[13] func: MATSetGoogleUserId"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[14] func: MATSetGoogleUserId"));
 
     if (!_extLoad())
         return;
@@ -441,7 +481,7 @@ void MATSetGoogleUserId(const char* userGoogleId)
 
 void MATSetGoogleAdvertisingId(const char* googleId, bool limitAdTracking)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[14] func: MATSetGoogleAdvertisingId"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[15] func: MATSetGoogleAdvertisingId"));
 
     if (!_extLoad())
         return;
@@ -461,7 +501,7 @@ void MATSetGoogleAdvertisingId(const char* googleId, bool limitAdTracking)
 
 void MATSetSiteId(const char* siteId)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[15] func: MATSetSiteId"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[16] func: MATSetSiteId"));
 
     if (!_extLoad())
         return;
@@ -481,7 +521,7 @@ void MATSetSiteId(const char* siteId)
 
 void MATSetTRUSTeId(const char* tpid)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[16] func: MATSetTRUSTeId"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[17] func: MATSetTRUSTeId"));
 
     if (!_extLoad())
         return;
@@ -501,7 +541,7 @@ void MATSetTRUSTeId(const char* tpid)
 
 void MATSetAppAdTracking(bool enable)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[17] func: MATSetAppAdTracking"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[18] func: MATSetAppAdTracking"));
 
     if (!_extLoad())
         return;
@@ -521,7 +561,7 @@ void MATSetAppAdTracking(bool enable)
 
 void MATSetDelegate(bool enable)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[18] func: MATSetDelegate"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[19] func: MATSetDelegate"));
 
     if (!_extLoad())
         return;
@@ -541,7 +581,7 @@ void MATSetDelegate(bool enable)
 
 void MATSetEventAttribute1(const char* attr)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[19] func: MATSetEventAttribute1"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[20] func: MATSetEventAttribute1"));
 
     if (!_extLoad())
         return;
@@ -561,7 +601,7 @@ void MATSetEventAttribute1(const char* attr)
 
 void MATSetEventAttribute2(const char* attr)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[20] func: MATSetEventAttribute2"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[21] func: MATSetEventAttribute2"));
 
     if (!_extLoad())
         return;
@@ -581,7 +621,7 @@ void MATSetEventAttribute2(const char* attr)
 
 void MATSetEventAttribute3(const char* attr)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[21] func: MATSetEventAttribute3"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[22] func: MATSetEventAttribute3"));
 
     if (!_extLoad())
         return;
@@ -601,7 +641,7 @@ void MATSetEventAttribute3(const char* attr)
 
 void MATSetEventAttribute4(const char* attr)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[22] func: MATSetEventAttribute4"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[23] func: MATSetEventAttribute4"));
 
     if (!_extLoad())
         return;
@@ -621,7 +661,7 @@ void MATSetEventAttribute4(const char* attr)
 
 void MATSetEventAttribute5(const char* attr)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[23] func: MATSetEventAttribute5"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[24] func: MATSetEventAttribute5"));
 
     if (!_extLoad())
         return;
@@ -639,9 +679,169 @@ void MATSetEventAttribute5(const char* attr)
     return;
 }
 
+void MATSetEventContentType(const char* contentType)
+{
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[25] func: MATSetEventContentType"));
+
+    if (!_extLoad())
+        return;
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+#endif
+
+    g_Ext.m_MATSetEventContentType(contentType);
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+#endif
+
+    return;
+}
+
+void MATSetEventContentId(const char* contentId)
+{
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[26] func: MATSetEventContentId"));
+
+    if (!_extLoad())
+        return;
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+#endif
+
+    g_Ext.m_MATSetEventContentId(contentId);
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+#endif
+
+    return;
+}
+
+void MATSetEventLevel(int level)
+{
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[27] func: MATSetEventLevel"));
+
+    if (!_extLoad())
+        return;
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+#endif
+
+    g_Ext.m_MATSetEventLevel(level);
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+#endif
+
+    return;
+}
+
+void MATSetEventQuantity(int quantity)
+{
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[28] func: MATSetEventQuantity"));
+
+    if (!_extLoad())
+        return;
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+#endif
+
+    g_Ext.m_MATSetEventQuantity(quantity);
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+#endif
+
+    return;
+}
+
+void MATSetEventSearchString(const char* searchString)
+{
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[29] func: MATSetEventSearchString"));
+
+    if (!_extLoad())
+        return;
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+#endif
+
+    g_Ext.m_MATSetEventSearchString(searchString);
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+#endif
+
+    return;
+}
+
+void MATSetEventRating(const char * rating)
+{
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[30] func: MATSetEventRating"));
+
+    if (!_extLoad())
+        return;
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+#endif
+
+    g_Ext.m_MATSetEventRating(rating);
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+#endif
+
+    return;
+}
+
+void MATSetEventDate1(const char* date)
+{
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[31] func: MATSetEventDate1"));
+
+    if (!_extLoad())
+        return;
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+#endif
+
+    g_Ext.m_MATSetEventDate1(date);
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+#endif
+
+    return;
+}
+
+void MATSetEventDate2(const char* date)
+{
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[32] func: MATSetEventDate2"));
+
+    if (!_extLoad())
+        return;
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+#endif
+
+    g_Ext.m_MATSetEventDate2(date);
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+#endif
+
+    return;
+}
+
 void MATSetExistingUser(bool isExisting)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[24] func: MATSetExistingUser"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[33] func: MATSetExistingUser"));
 
     if (!_extLoad())
         return;
@@ -659,9 +859,29 @@ void MATSetExistingUser(bool isExisting)
     return;
 }
 
+void MATSetFacebookEventLogging(bool enable, bool limitUsage)
+{
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[34] func: MATSetFacebookEventLogging"));
+
+    if (!_extLoad())
+        return;
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
+#endif
+
+    g_Ext.m_MATSetFacebookEventLogging(enable, limitUsage);
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
+#endif
+
+    return;
+}
+
 void MATSetPayingUser(bool isPaying)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[25] func: MATSetPayingUser"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[35] func: MATSetPayingUser"));
 
     if (!_extLoad())
         return;
@@ -681,7 +901,7 @@ void MATSetPayingUser(bool isPaying)
 
 void MATSetJailbroken(bool isJailbroken)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[26] func: MATSetJailbroken"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[36] func: MATSetJailbroken"));
 
     if (!_extLoad())
         return;
@@ -701,7 +921,7 @@ void MATSetJailbroken(bool isJailbroken)
 
 void MATSetShouldAutoDetectJailbroken(bool shouldAutoDetect)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[27] func: MATSetShouldAutoDetectJailbroken"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[37] func: MATSetShouldAutoDetectJailbroken"));
 
     if (!_extLoad())
         return;
@@ -721,7 +941,7 @@ void MATSetShouldAutoDetectJailbroken(bool shouldAutoDetect)
 
 void MATSetUseCookieTracking(bool useCookieTracking)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[28] func: MATSetUseCookieTracking"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[38] func: MATSetUseCookieTracking"));
 
     if (!_extLoad())
         return;
@@ -741,7 +961,7 @@ void MATSetUseCookieTracking(bool useCookieTracking)
 
 void MATSetAge(int age)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[29] func: MATSetAge"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[39] func: MATSetAge"));
 
     if (!_extLoad())
         return;
@@ -761,7 +981,7 @@ void MATSetAge(int age)
 
 void MATSetGender(int gender)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[30] func: MATSetGender"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[40] func: MATSetGender"));
 
     if (!_extLoad())
         return;
@@ -781,7 +1001,7 @@ void MATSetGender(int gender)
 
 void MATSetLocation(const char* latitude, const char* longitude)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[31] func: MATSetLocation"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[41] func: MATSetLocation"));
 
     if (!_extLoad())
         return;
@@ -801,7 +1021,7 @@ void MATSetLocation(const char* latitude, const char* longitude)
 
 void MATSetLocationWithAltitude(const char* latitude, const char* longitude, const char* altitude)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[32] func: MATSetLocationWithAltitude"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[42] func: MATSetLocationWithAltitude"));
 
     if (!_extLoad())
         return;
@@ -821,7 +1041,7 @@ void MATSetLocationWithAltitude(const char* latitude, const char* longitude, con
 
 bool MATGetIsPayingUser()
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[33] func: MATGetIsPayingUser"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[43] func: MATGetIsPayingUser"));
 
     if (!_extLoad())
         return false;
@@ -841,7 +1061,7 @@ bool MATGetIsPayingUser()
 
 const char* MATGetMatId()
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[34] func: MATGetMatId"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[44] func: MATGetMatId"));
 
     if (!_extLoad())
         return NULL;
@@ -861,7 +1081,7 @@ const char* MATGetMatId()
 
 const char* MATGetOpenLogId()
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[35] func: MATGetOpenLogId"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[45] func: MATGetOpenLogId"));
 
     if (!_extLoad())
         return NULL;
@@ -881,7 +1101,7 @@ const char* MATGetOpenLogId()
 
 void MATStartAppToAppTracking(const char* targetAppId, const char* advertiserId, const char* offerId, const char* publisherId, bool shouldRedirect)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[36] func: MATStartAppToAppTracking"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[46] func: MATStartAppToAppTracking"));
 
     if (!_extLoad())
         return;
@@ -901,7 +1121,7 @@ void MATStartAppToAppTracking(const char* targetAppId, const char* advertiserId,
 
 void MATSetRedirectUrl(const char* redirectUrl)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[37] func: MATSetRedirectUrl"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[47] func: MATSetRedirectUrl"));
 
     if (!_extLoad())
         return;
@@ -921,7 +1141,7 @@ void MATSetRedirectUrl(const char* redirectUrl)
 
 void MATSetAppleAdvertisingIdentifier(const char* ifa, bool advertisingTrackingEnabled)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[38] func: MATSetAppleAdvertisingIdentifier"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[48] func: MATSetAppleAdvertisingIdentifier"));
 
     if (!_extLoad())
         return;
@@ -941,7 +1161,7 @@ void MATSetAppleAdvertisingIdentifier(const char* ifa, bool advertisingTrackingE
 
 void MATSetAppleVendorIdentifier(const char* ifv)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[39] func: MATSetAppleVendorIdentifier"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[49] func: MATSetAppleVendorIdentifier"));
 
     if (!_extLoad())
         return;
@@ -961,7 +1181,7 @@ void MATSetAppleVendorIdentifier(const char* ifv)
 
 void MATSetShouldAutoGenerateAppleVendorIdentifier(bool shouldAutoGenerate)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[40] func: MATSetShouldAutoGenerateAppleVendorIdentifier"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[50] func: MATSetShouldAutoGenerateAppleVendorIdentifier"));
 
     if (!_extLoad())
         return;
@@ -981,7 +1201,7 @@ void MATSetShouldAutoGenerateAppleVendorIdentifier(bool shouldAutoGenerate)
 
 void MATSetDebugMode(bool shouldDebug)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[41] func: MATSetDebugMode"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[51] func: MATSetDebugMode"));
 
     if (!_extLoad())
         return;
@@ -1001,7 +1221,7 @@ void MATSetDebugMode(bool shouldDebug)
 
 void MATSetAllowDuplicates(bool allowDuplicates)
 {
-    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[42] func: MATSetAllowDuplicates"));
+    IwTrace(MATSDK_VERBOSE, ("calling s3eMATSDK[52] func: MATSetAllowDuplicates"));
 
     if (!_extLoad())
         return;

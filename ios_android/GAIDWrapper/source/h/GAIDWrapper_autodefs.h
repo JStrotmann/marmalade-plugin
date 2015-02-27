@@ -11,4 +11,12 @@
 #define S3E_EXT_GAIDWRAPPER_NAME "GAIDWrapper"
 #define S3E_EXT_GAIDWRAPPER_HASH 0x5d2267b
 
+#ifdef S3E_EXT_REGISTER
+#ifndef S3E_EXT_REGISTER_KEY
+#define S3E_EXT_REGISTER_KEY(name, num, key) S3E_EXT_REGISTER(name, num)
+#endif
+S3E_EXT_REGISTER("GAIDWrapper", 1)
+#else
+
+#endif /* S3E_EXT_REGISTER */
 #endif /* !GAIDWRAPPER_AUTODEFS_H */

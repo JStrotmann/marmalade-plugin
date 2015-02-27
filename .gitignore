@@ -1,23 +1,17 @@
 # Ignore xcode build files
-ios_android/MATSDKSampleProj/build_matsdksampleproj_xcode/build/*
+ios_android/MATSDKSampleProj/build_matsdksampleproj_xcode
 
-ios_android/s3eMATSDK/build_s3ematsdk_iphone_iphone_scons_arm/*
-ios_android/s3eMATSDK/build_s3ematsdk_iphone_iphone_scons_arm/
-ios_android/s3eMATSDK/build_s3ematsdk_android_linux_scons_arm/*
-ios_android/s3eMATSDK/build_s3ematsdk_android_java/*
-ios_android/s3eMATSDK/stamp/s3eMATSDK.s4e.stamp
+ios_android/s3eMATSDK/build_s3ematsdk_iphone_*
+ios_android/s3eMATSDK/build_s3ematsdk_android_*
+ios_android/s3eMATSDK/stamp
 
-ios_android/IFAWrapper/build_ifawrapper_iphone_iphone_scons_arm/*
-ios_android/IFAWrapper/build_ifawrapper_iphone_iphone_scons_arm/
-ios_android/IFAWrapper/build_ifawrapper_android_linux_scons_arm/*
-ios_android/IFAWrapper/build_ifawrapper_android_java/*
-ios_android/IFAWrapper/stamp/IFAWrapper.s4e.stamp
+ios_android/IFAWrapper/build_ifawrapper_iphone_*
+ios_android/IFAWrapper/build_ifawrapper_android_*
+ios_android/IFAWrapper/stamp
 
-ios_android/GAIDWrapper/build_gaidwrapper_iphone_iphone_scons_arm/*
-ios_android/GAIDWrapper/build_gaidwrapper_iphone_iphone_scons_arm/
-ios_android/GAIDWrapper/build_gaidwrapper_android_linux_scons_arm/*
-ios_android/GAIDWrapper/build_gaidwrapper_android_java/*
-ios_android/GAIDWrapper/stamp/GAIDWrapper.s4e.stamp
+ios_android/GAIDWrapper/build_gaidwrapper_iphone_*
+ios_android/GAIDWrapper/build_gaidwrapper_android_*
+ios_android/GAIDWrapper/stamp
 
 # Xcode
 build/*

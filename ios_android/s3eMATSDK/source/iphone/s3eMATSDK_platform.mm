@@ -7,7 +7,6 @@
  * be overwritten (unless --force is specified) and is intended to be modified.
  */
 #include "s3eMATSDK_internal.h"
-#import <UIKit/UIKit.h>
 #include "s3eTypes.h"
 #include "s3eEdk.h"
 #include "s3eEdk_iphone.h"
@@ -15,6 +14,8 @@
 
 #include "MobileAppTracker.h"
 #include "MATEventItem.h"
+
+#import <UIKit/UIKit.h>
 
 #define S3E_CURRENT_EXT MATSDK
 #include "s3eEdkError.h"
@@ -55,14 +56,14 @@ NSString* CreateNSString (const char* string)
     
     errorURLString = nil == error ? @"" : errorURLString;
     
-    NSString *strError = [NSString stringWithFormat:@"{\"code\":\"%d\",\"localizedDescription\":\"%@\",\"failedURL\":\"%@\"}", errorCode, errorDescr, errorURLString];
+    NSString *strError = [NSString stringWithFormat:@"{\"code\":\"%zd\",\"localizedDescription\":\"%@\",\"failedURL\":\"%@\"}", errorCode, errorDescr, errorURLString];
     
-    NSLog(@"Native: MATSDKDelegate: error = %@", strError);
+    NSLog(@"Native: MATSDKDelegate: failed: error = %@", strError);
 }
 
 - (void)mobileAppTrackerEnqueuedActionWithReferenceId:(NSString *)referenceId
 {
-    NSLog(@"Native: MATSDKDelegate: enqueued: %@", referenceId);
+    NSLog(@"Native: MATSDKDelegate: enqueued: refId = %@", referenceId);
 }
 
 @end
@@ -199,6 +200,57 @@ void MATMeasureActionWithItems_platform(const char* eventIdOrName, const MATArra
                             receipt:[strReceipt dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
+// Session init / terminate
+//////////////////////////////////////////////////////////////////////////////
+
+int32 internalHandleOpenURL(void* systemData, void* userData)
+{
+    NSURL *url = (NSURL *)systemData;
+    NSString *absUrl = [url absoluteString];
+    const char *cstrUrl = absUrl ? [absUrl UTF8String] : NULL;
+    
+    NSLog(@"Native: internalHandleOpenURL url = %s", cstrUrl);
+    
+    if (s3eEdkCallbacksIsRegistered(S3E_EXT_MATSDK_HASH, MAT_CALLBACK_OPENURL))
+    {
+        s3eEdkCallbacksEnqueue(S3E_EXT_MATSDK_HASH,
+                               MAT_CALLBACK_OPENURL,
+                               (void*)cstrUrl,
+                               (cstrUrl ? strlen(cstrUrl) + 1 : 0));
+    }
+    
+    return 0;
+}
+
+void MATCheckForDeferredDeeplink_platform(const char * timeout, s3eCallback cb)
+{
+    // register for iOS OpenUrl callback
+    s3eEdkCallbacksRegisterInternal(
+                                    S3E_EDK_INTERNAL,
+                                    S3E_EDK_CALLBACK_MAX,
+                                    S3E_EDK_IPHONE_HANDLEOPENURL,
+                                    internalHandleOpenURL,
+                                    NULL,
+                                    false
+                                    );
+
+    // register app method as callback for MAT OpenUrl event
+    s3eEdkCallbacksRegister(
+                            S3E_EXT_MATSDK_HASH,
+                            MAT_CALLBACK_MAX, // max notification ID
+                            MAT_CALLBACK_OPENURL, // notification ID
+                            cb, // application side function to be called
+                            NULL, // pointer to custom data
+                            S3E_FALSE // allow multiple callbacks for this event
+                            );
+    
+    NSString *strTimeout = NULL == timeout ? nil : [NSString stringWithUTF8String:timeout];
+    
+    NSLog(@"Native: checkForDeferredDeeplink = %@", strTimeout);
+    
+    [MobileAppTracker checkForDeferredDeeplinkWithTimeout:[strTimeout floatValue] / 1000]; // millis --> sec
+}
+
 void MATSetPackageName_platform(const char* packageName)
 {
     NSLog(@"Native: setPackageName = %s", packageName);
@@ -300,6 +352,83 @@ void MATSetEventAttribute5_platform(const char* attr)
     [MobileAppTracker setEventAttribute5:CreateNSString(attr)];
 }
 
+void MATSetEventContentType_platform(const char* contentType)
+{
+    NSLog(@"Native: setEventContentType: %s", contentType);
+    
+    [MobileAppTracker setEventContentType:CreateNSString(contentType)];
+}
+
+void MATSetEventContentId_platform(const char* contentId)
+{
+    NSLog(@"Native: setEventContentId: %s", contentId);
+    
+    [MobileAppTracker setEventContentId:CreateNSString(contentId)];
+}
+
+void MATSetEventLevel_platform(int level)
+{
+    NSLog(@"Native: setEventLevel: %d", level);
+    
+    [MobileAppTracker setEventLevel:level];
+}
+
+void MATSetEventQuantity_platform(int quantity)
+{
+    NSLog(@"Native: setEventQuantity: %d", quantity);
+    
+    [MobileAppTracker setEventQuantity:quantity];
+}
+
+void MATSetEventSearchString_platform(const char* searchString)
+{
+    NSLog(@"Native: setEventSearchString: %s", searchString);
+    
+    [MobileAppTracker setEventSearchString:CreateNSString(searchString)];
+}
+
+void MATSetEventRating_platform(const char * rating)
+{
+    NSString *strRating = NULL == rating ? nil : [NSString stringWithUTF8String:rating];
+    
+    NSLog(@"Native: setEventRating = %@", strRating);
+    
+    [MobileAppTracker setEventRating:[strRating floatValue]];
+}
+
+void MATSetEventDate1_platform(const char* dateMillis)
+{
+    NSString *strDateMillis = NULL == dateMillis ? nil : [NSString stringWithUTF8String:dateMillis];
+    
+    NSLog(@"Native: setEventDate1 = %@", strDateMillis);
+    
+    double millis = [strDateMillis doubleValue];
+    
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:millis / 1000];
+    
+    [MobileAppTracker setEventDate1:date];
+}
+
+void MATSetEventDate2_platform(const char* dateMillis)
+{
+    NSString *strDateMillis = NULL == dateMillis ? nil : [NSString stringWithUTF8String:dateMillis];
+    
+    NSLog(@"Native: setEventDate2 = %@", strDateMillis);
+    
+    double millis = [strDateMillis doubleValue];
+    
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:millis / 1000];
+    
+    [MobileAppTracker setEventDate2:date];
+}
+
+void MATSetFacebookEventLogging_platform(bool enable, bool limitUsage)
+{
+    NSLog(@"Native: setFacebookEventLogging: enable = %d, limitUsage = %d", enable, limitUsage);
+    
+    [MobileAppTracker setFacebookEventLogging:enable limitEventAndDataUsage:limitUsage];
+}
+
 void MATSetGoogleAdvertisingId_platform(const char* googleId, bool limitAdTracking)
 {
     // NOT IMPLEMENTED FOR iOS
@@ -356,22 +485,22 @@ void MATSetGender_platform(int gender)
 
 void MATSetLocation_platform(const char* latitude, const char* longitude)
 {
-	NSString *strLat = NULL == latitude ? nil : [NSString stringWithUTF8String:latitude];
-	NSString *strLong = NULL == longitude ? nil : [NSString stringWithUTF8String:longitude];
-	
-	NSLog(@"Native: setLocation = %@, %@", strLat, strLong);
-	
+    NSString *strLat = NULL == latitude ? nil : [NSString stringWithUTF8String:latitude];
+    NSString *strLong = NULL == longitude ? nil : [NSString stringWithUTF8String:longitude];
+
+    NSLog(@"Native: setLocation = %@, %@", strLat, strLong);
+
     [MobileAppTracker setLatitude:[strLat floatValue] longitude:[strLong floatValue]];
 }
 
 void MATSetLocationWithAltitude_platform(const char* latitude, const char* longitude, const char* altitude)
 {
-	NSString *strLat = NULL == latitude ? nil : [NSString stringWithUTF8String:latitude];
-	NSString *strLong = NULL == longitude ? nil : [NSString stringWithUTF8String:longitude];
-	NSString *strAlt = NULL == altitude ? nil : [NSString stringWithUTF8String:altitude];
-	
-	NSLog(@"Native: setLocationWithAltitude = %@, %@, %@", strLat, strLong, strAlt);
-	
+    NSString *strLat = NULL == latitude ? nil : [NSString stringWithUTF8String:latitude];
+    NSString *strLong = NULL == longitude ? nil : [NSString stringWithUTF8String:longitude];
+    NSString *strAlt = NULL == altitude ? nil : [NSString stringWithUTF8String:altitude];
+
+    NSLog(@"Native: setLocationWithAltitude = %@, %@, %@", strLat, strLong, strAlt);
+
     [MobileAppTracker setLatitude:[strLat floatValue] longitude:[strLong floatValue] altitude:[strAlt floatValue]];
 }
 

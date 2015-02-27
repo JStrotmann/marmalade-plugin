@@ -25,7 +25,6 @@ static jmethodID g_MATMeasureActionWithRevenue;
 static jmethodID g_MATMeasureActionWithItems;
 
 static jmethodID g_MATSetPackageName;
-static jmethodID g_MATStartAppToAppTracking;
 
 static jmethodID g_MATSetCurrencyCode;
 static jmethodID g_MATSetUserEmail;
@@ -36,6 +35,16 @@ static jmethodID g_MATSetEventAttribute2;
 static jmethodID g_MATSetEventAttribute3;
 static jmethodID g_MATSetEventAttribute4;
 static jmethodID g_MATSetEventAttribute5;
+
+static jmethodID g_MATSetEventContentType;
+static jmethodID g_MATSetEventContentId;
+static jmethodID g_MATSetEventLevel;
+static jmethodID g_MATSetEventQuantity;
+static jmethodID g_MATSetEventSearchString;
+static jmethodID g_MATSetEventRating;
+static jmethodID g_MATSetEventDate1;
+static jmethodID g_MATSetEventDate2;
+
 static jmethodID g_MATSetExistingUser;
 static jmethodID g_MATSetFacebookUserId;
 static jmethodID g_MATSetTwitterUserId;
@@ -45,6 +54,7 @@ static jmethodID g_MATSetSiteId;
 static jmethodID g_MATSetTRUSTeId;
 static jmethodID g_MATSetDebugMode;
 static jmethodID g_MATSetAllowDuplicates;
+static jmethodID g_MATSetFacebookEventLogging;
 
 static jmethodID g_MATSetPayingUser;
 static jmethodID g_MATGetIsPayingUser;
@@ -56,6 +66,8 @@ static jmethodID g_MATSetLocationWithAltitude;
 
 static jmethodID g_MATGetMatId;
 static jmethodID g_MATGetOpenLogId;
+
+static jmethodID g_MATCheckForDeferredDeeplink;
 
 s3eResult MATSDKInit_platform()
 {
@@ -107,10 +119,7 @@ s3eResult MATSDKInit_platform()
     g_MATSetPackageName = env->GetMethodID(cls, "MATSetPackageName", "(Ljava/lang/String;)V");
     if (!g_MATSetPackageName)
         goto fail;
-    
-    g_MATStartAppToAppTracking = env->GetMethodID(cls, "MATStartAppToAppTracking", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V");
-    if (!g_MATStartAppToAppTracking)
-        goto fail;
+
     ///////
     g_MATSetCurrencyCode = env->GetMethodID(cls, "MATSetCurrencyCode", "(Ljava/lang/String;)V");
     if (!g_MATSetCurrencyCode)
@@ -160,6 +169,38 @@ s3eResult MATSDKInit_platform()
     if (!g_MATSetEventAttribute5)
         goto fail;
     
+    g_MATSetEventContentType = env->GetMethodID(cls, "MATSetEventContentType", "(Ljava/lang/String;)V");
+    if (!g_MATSetEventContentType)
+        goto fail;
+
+    g_MATSetEventContentId = env->GetMethodID(cls, "MATSetEventContentId", "(Ljava/lang/String;)V");
+    if (!g_MATSetEventContentId)
+        goto fail;
+
+    g_MATSetEventLevel = env->GetMethodID(cls, "MATSetEventLevel", "(I)V");
+    if (!g_MATSetEventLevel)
+        goto fail;
+
+    g_MATSetEventQuantity = env->GetMethodID(cls, "MATSetEventQuantity", "(I)V");
+    if (!g_MATSetEventQuantity)
+        goto fail;
+
+    g_MATSetEventSearchString = env->GetMethodID(cls, "MATSetEventSearchString", "(Ljava/lang/String;)V");
+    if (!g_MATSetEventSearchString)
+        goto fail;
+
+    g_MATSetEventRating = env->GetMethodID(cls, "MATSetEventRating", "(F)V");
+    if (!g_MATSetEventRating)
+        goto fail;
+
+    g_MATSetEventDate1 = env->GetMethodID(cls, "MATSetEventDate1", "(Ljava/util/Date;)V");
+    if (!g_MATSetEventDate1)
+        goto fail;
+
+    g_MATSetEventDate2 = env->GetMethodID(cls, "MATSetEventDate2", "(Ljava/util/Date;)V");
+    if (!g_MATSetEventDate2)
+        goto fail;
+
     g_MATSetGoogleAdvertisingId = env->GetMethodID(cls, "MATSetGoogleAdvertisingId", "(Ljava/lang/String;Z)V");
     if (!g_MATSetGoogleAdvertisingId)
         goto fail;
@@ -179,30 +220,34 @@ s3eResult MATSDKInit_platform()
     g_MATSetExistingUser = env->GetMethodID(cls, "MATSetExistingUser", "(Z)V");
     if (!g_MATSetExistingUser)
         goto fail;
+
+    g_MATSetFacebookEventLogging = env->GetMethodID(cls, "MATSetFacebookEventLogging", "(Z)V");
+    if (!g_MATSetFacebookEventLogging)
+        goto fail;
     
     g_MATSetPayingUser = env->GetMethodID(cls, "MATSetPayingUser", "(Z)V");
     if (!g_MATSetPayingUser)
         goto fail;
     
 	g_MATSetAllowDuplicates = env->GetMethodID(cls, "MATSetAllowDuplicates", "(Z)V");
-	if (!g_MATSetAllowDuplicates)
-		goto fail;
+    if (!g_MATSetAllowDuplicates)
+        goto fail;
     
     g_MATSetAge = env->GetMethodID(cls, "MATSetAge", "(I)V");
-	if (!g_MATSetAge)
-		goto fail;
+    if (!g_MATSetAge)
+        goto fail;
     
     g_MATSetGender = env->GetMethodID(cls, "MATSetGender", "(I)V");
-	if (!g_MATSetGender)
-		goto fail;
+    if (!g_MATSetGender)
+        goto fail;
     
     g_MATSetLocation = env->GetMethodID(cls, "MATSetLocation", "(DD)V");
-	if (!g_MATSetLocation)
-		goto fail;
+    if (!g_MATSetLocation)
+        goto fail;
     
     g_MATSetLocationWithAltitude = env->GetMethodID(cls, "MATSetLocationWithAltitude", "(DDD)V");
-	if (!g_MATSetLocationWithAltitude)
-		goto fail;
+    if (!g_MATSetLocationWithAltitude)
+        goto fail;
     
     g_MATGetIsPayingUser = env->GetMethodID(cls, "MATGetIsPayingUser", "()Z");
     if (!g_MATGetIsPayingUser)
@@ -214,6 +259,10 @@ s3eResult MATSDKInit_platform()
     
     g_MATGetOpenLogId = env->GetMethodID(cls, "MATGetOpenLogId", "()Ljava/lang/String;");
     if (!g_MATGetOpenLogId)
+        goto fail;
+
+    g_MATCheckForDeferredDeeplink = env->GetMethodID(cls, "MATCheckForDeferredDeeplink", "(I)Ljava/lang/String;");
+    if (!g_MATCheckForDeferredDeeplink)
         goto fail;
     
     //////
@@ -372,21 +421,6 @@ void MATMeasureActionWithItems_platform(const char* eventIdOrName, const MATArra
 
 void MATStartAppToAppTracking_platform(const char* targetAppId, const char* advertiserId, const char* offerId, const char* publisherId, bool shouldRedirect)
 {
-    JNIEnv* env = s3eEdkJNIGetEnv();
-    
-    jstring targetAppIdUTF = env->NewStringUTF(targetAppId);
-    jstring advertiserIdUTF = env->NewStringUTF(advertiserId);
-    jstring offerIdUTF = env->NewStringUTF(offerId);
-    jstring publisherIdUTF = env->NewStringUTF(publisherId);
-    
-    // Call setTracking from Android SDK
-    env->CallVoidMethod(g_Obj, g_MATStartAppToAppTracking, advertiserIdUTF, targetAppIdUTF, publisherIdUTF, offerIdUTF, shouldRedirect);
-    
-    env->DeleteLocalRef(targetAppIdUTF);
-    env->DeleteLocalRef(advertiserIdUTF);
-    env->DeleteLocalRef(offerIdUTF);
-    env->DeleteLocalRef(publisherIdUTF);
-    
     return;
 }
 
@@ -531,11 +565,118 @@ void MATSetEventAttribute5_platform(const char* attr)
     env->DeleteLocalRef(data_jstr);
 }
 
+void MATSetEventContentType_platform(const char* contentType)
+{
+    JNIEnv* env = s3eEdkJNIGetEnv();
+    jstring data_jstr = env->NewStringUTF(contentType);
+    
+    env->CallVoidMethod(g_Obj, g_MATSetEventContentType, data_jstr);
+    
+    env->DeleteLocalRef(data_jstr);
+}
+
+void MATSetEventContentId_platform(const char* contentId)
+{
+    JNIEnv* env = s3eEdkJNIGetEnv();
+    jstring data_jstr = env->NewStringUTF(contentId);
+    
+    env->CallVoidMethod(g_Obj, g_MATSetEventContentId, data_jstr);
+    
+    env->DeleteLocalRef(data_jstr);
+}
+
+void MATSetEventLevel_platform(int level)
+{
+    JNIEnv* env = s3eEdkJNIGetEnv();
+    
+    env->CallVoidMethod(g_Obj, g_MATSetEventLevel, level);
+}
+
+void MATSetEventQuantity_platform(int quantity)
+{
+    JNIEnv* env = s3eEdkJNIGetEnv();
+    
+    env->CallVoidMethod(g_Obj, g_MATSetEventQuantity, quantity);
+}
+
+void MATSetEventSearchString_platform(const char* searchString)
+{
+    JNIEnv* env = s3eEdkJNIGetEnv();
+    jstring data_jstr = env->NewStringUTF(searchString);
+    
+    env->CallVoidMethod(g_Obj, g_MATSetEventSearchString, data_jstr);
+    
+    env->DeleteLocalRef(data_jstr);
+}
+
+void MATSetEventRating_platform(const char* rating)
+{
+    JNIEnv* env = s3eEdkJNIGetEnv();
+
+    // Convert from string to float
+    float ratingFloat = (float)strtod(rating, NULL);
+    env->CallVoidMethod(g_Obj, g_MATSetEventRating, ratingFloat);
+}
+
+void MATSetEventDate1_platform(const char* dateMillis)
+{
+    JNIEnv* env = s3eEdkJNIGetEnv();
+
+    // Convert from string to Java Date
+    jstring dateMillisUTF = env->NewStringUTF(dateMillis);
+    jclass clsDouble = env->FindClass("java/lang/Double");
+    jmethodID ctrDouble = env->GetMethodID(clsDouble, "<init>", "(Ljava/lang/String;)V");
+    jobject objDouble = env->NewObject(clsDouble, ctrDouble, dateMillisUTF);
+    
+    jmethodID methodLongValue = env->GetMethodID(clsDouble, "longValue", "()J");
+    jlong millis = env->CallLongMethod(objDouble, methodLongValue);
+    
+    jclass clsDate = env->FindClass("java/util/Date");
+    jmethodID ctrDate = env->GetMethodID(clsDate, "<init>", "(J)V");
+    jobject objDate = env->NewObject(clsDate, ctrDate, millis);
+    
+    env->CallVoidMethod(g_Obj, g_MATSetEventDate1, objDate);
+
+    env->DeleteLocalRef(dateMillisUTF);
+    env->DeleteLocalRef(objDouble);
+    env->DeleteLocalRef(objDate);
+}
+
+void MATSetEventDate2_platform(const char* dateMillis)
+{
+    JNIEnv* env = s3eEdkJNIGetEnv();
+
+    jstring dateMillisUTF = env->NewStringUTF(dateMillis);
+    jclass clsDouble = env->FindClass("java/lang/Double");
+    jmethodID ctrDouble = env->GetMethodID(clsDouble, "<init>", "(Ljava/lang/String;)V");
+    jobject objDouble = env->NewObject(clsDouble, ctrDouble, dateMillisUTF);
+    
+    jmethodID methodLongValue = env->GetMethodID(clsDouble, "longValue", "()J");
+    jlong millis = env->CallLongMethod(objDouble, methodLongValue);
+    
+    jclass clsDate = env->FindClass("java/util/Date");
+    jmethodID ctrDate = env->GetMethodID(clsDate, "<init>", "(J)V");
+    jobject objDate = env->NewObject(clsDate, ctrDate, millis);
+    
+    env->CallVoidMethod(g_Obj, g_MATSetEventDate2, objDate);
+
+    env->DeleteLocalRef(dateMillisUTF);
+    env->DeleteLocalRef(objDouble);
+    env->DeleteLocalRef(objDate);
+}
+
 void MATSetExistingUser_platform(bool isExisting)
 {
     JNIEnv* env = s3eEdkJNIGetEnv();
     
     env->CallVoidMethod(g_Obj, g_MATSetExistingUser, isExisting);
+}
+
+void MATSetFacebookEventLogging_platform(bool enable, bool limitUsage)
+{
+    JNIEnv* env = s3eEdkJNIGetEnv();
+    
+    env->CallVoidMethod(g_Obj, g_MATSetFacebookEventLogging, enable);
 }
 
 void MATSetPayingUser_platform(bool isPaying)
@@ -591,17 +732,24 @@ void MATSetGender_platform(int gender)
     env->CallVoidMethod(g_Obj, g_MATSetGender, gender);
 }
 
-void MATSetLocation_platform(const char * latitude, const char * longitude)
+void MATSetLocation_platform(const char * latitudeStr, const char * longitudeStr)
 {
     JNIEnv* env = s3eEdkJNIGetEnv();
     
+    // Convert from string to double
+    double latitude = strtod(latitudeStr, NULL);
+    double longitude = strtod(longitudeStr, NULL);
     env->CallVoidMethod(g_Obj, g_MATSetLocation, latitude, longitude);
 }
 
-void MATSetLocationWithAltitude_platform(const char * latitude, const char * longitude, const char * altitude)
+void MATSetLocationWithAltitude_platform(const char * latitudeStr, const char * longitudeStr, const char * altitudeStr)
 {
     JNIEnv* env = s3eEdkJNIGetEnv();
     
+    // Convert from string to double
+    double latitude = strtod(latitudeStr, NULL);
+    double longitude = strtod(longitudeStr, NULL);
+    double altitude = strtod(altitudeStr, NULL);
     env->CallVoidMethod(g_Obj, g_MATSetLocationWithAltitude, latitude, longitude, altitude);
 }
 
@@ -636,6 +784,14 @@ const char* MATGetOpenLogId_platform()
     const char *openLogId_cstr = env->GetStringUTFChars(openLogId_jstr, 0);
 
     return openLogId_cstr;
+}
+
+void MATCheckForDeferredDeeplink_platform(const char* timeoutStr, s3eCallback cb)
+{
+    JNIEnv* env = s3eEdkJNIGetEnv();
+    
+    int timeout = strtod(timeoutStr, NULL);
+    env->CallObjectMethod(g_Obj, g_MATCheckForDeferredDeeplink, timeout);
 }
 
 // iOS only functions that do nothing on Android

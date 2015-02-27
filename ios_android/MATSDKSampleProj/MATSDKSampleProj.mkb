@@ -35,7 +35,7 @@ deployments
 {
     ["Default"]
     app-icf='data/app.icf'
-    iphone-appid='2GLFC47AY5.com.hasoffers.marmaladeTestApp'
+    iphone-appid='com.hasoffers.marmaladeTestApp'
     iphone-provisioning-profile='Marmalade_dev_profile.mobileprovision'
 
     android-manifest='AndroidManifest.xml'

@@ -34,7 +34,7 @@ s3eResult MATSDKInit_platform();
 
 /**
  * Terminate the extension.  This is called once on shutdown, but only if the
- * extension was loader and Init() was successful.
+ * extension was loaded and Init() was successful.
  */
 void s3eMATSDKTerminate();
 
@@ -42,7 +42,9 @@ void s3eMATSDKTerminate();
  * Platform-specific termination, implemented on each platform
  */
 void MATSDKTerminate_platform();
+
 void MATStartMobileAppTracker_platform(const char* adId, const char* convKey);
+void MATCheckForDeferredDeeplink_platform(const char* timeout, s3eCallback cb);
 
 void MATMeasureSession_platform();
 
@@ -66,7 +68,16 @@ void MATSetEventAttribute2_platform(const char* attr);
 void MATSetEventAttribute3_platform(const char* attr);
 void MATSetEventAttribute4_platform(const char* attr);
 void MATSetEventAttribute5_platform(const char* attr);
-void MATSetExistingUser_platform(bool shouldDebug);
+void MATSetEventContentType_platform(const char* contentType);
+void MATSetEventContentId_platform(const char* contentId);
+void MATSetEventLevel_platform(int level);
+void MATSetEventQuantity_platform(int quantity);
+void MATSetEventSearchString_platform(const char* searchString);
+void MATSetEventRating_platform(const char * rating);
+void MATSetEventDate1_platform(const char* date);
+void MATSetEventDate2_platform(const char* date);
+void MATSetExistingUser_platform(bool isExisting);
+void MATSetFacebookEventLogging_platform(bool enable, bool limitUsage);
 void MATSetPayingUser_platform(bool isPaying);
 void MATSetGender_platform(int gender);
 void MATSetGoogleAdvertisingId_platform(const char* googleId, bool limitAdTracking);

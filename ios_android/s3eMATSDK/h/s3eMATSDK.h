@@ -37,6 +37,12 @@ typedef struct MATArray {
     void *m_items; // Items in array
     unsigned int m_count; // number of items
 } MATArray;
+
+typedef enum MATExtensionCallback
+{
+    MAT_CALLBACK_OPENURL,
+    MAT_CALLBACK_MAX
+} MATExtensionCallback;
 // \cond HIDDEN_DEFINES
 S3E_BEGIN_C_DECL
 // \endcond
@@ -47,6 +53,8 @@ S3E_BEGIN_C_DECL
 s3eBool s3eMATSDKAvailable();
 
 void MATStartMobileAppTracker(const char* adId, const char* convKey);
+
+void MATCheckForDeferredDeeplink(const char* timeout, s3eCallback function);
 
 void MATMeasureSession();
 
@@ -94,7 +102,25 @@ void MATSetEventAttribute4(const char* attr);
 
 void MATSetEventAttribute5(const char* attr);
 
+void MATSetEventContentType(const char* contentType);
+
+void MATSetEventContentId(const char* contentId);
+
+void MATSetEventLevel(int level);
+
+void MATSetEventQuantity(int quantity);
+
+void MATSetEventSearchString(const char* searchString);
+
+void MATSetEventRating(const char * rating);
+
+void MATSetEventDate1(const char* date);
+
+void MATSetEventDate2(const char* date);
+
 void MATSetExistingUser(bool isExisting);
+
+void MATSetFacebookEventLogging(bool enable, bool limitUsage);
 
 void MATSetPayingUser(bool isPaying);
 

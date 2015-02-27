@@ -18,7 +18,6 @@ s3eResult s3eMATSDKInit()
     return MATSDKInit_platform();
 }
 
-
 void s3eMATSDKTerminate()
 {
     //Add any generic termination code here
@@ -58,6 +57,11 @@ void MATMeasureActionWithItems(const char* eventIdOrName, const MATArray* items,
 void MATStartAppToAppTracking(const char* targetAppId, const char* advertiserId, const char* offerId, const char* publisherId, bool shouldRedirect)
 {
     MATStartAppToAppTracking_platform(targetAppId, advertiserId, offerId, publisherId, shouldRedirect);
+}
+
+void MATCheckForDeferredDeeplink(const char* timeout, s3eCallback cb)
+{
+    MATCheckForDeferredDeeplink_platform(timeout, cb);
 }
 
 void MATSetPackageName(const char* packageName)
@@ -160,9 +164,54 @@ void MATSetEventAttribute5(const char* attr)
     MATSetEventAttribute5_platform(attr);
 }
 
+void MATSetEventContentType(const char* contentType)
+{
+    MATSetEventContentType_platform(contentType);
+}
+
+void MATSetEventContentId(const char* contentId)
+{
+    MATSetEventContentId_platform(contentId);
+}
+
+void MATSetEventLevel(int level)
+{
+    MATSetEventLevel_platform(level);
+}
+
+void MATSetEventQuantity(int quantity)
+{
+    MATSetEventQuantity_platform(quantity);
+}
+
+void MATSetEventSearchString(const char* searchString)
+{
+    MATSetEventSearchString_platform(searchString);
+}
+
+void MATSetEventRating(const char * rating)
+{
+    MATSetEventRating_platform(rating);
+}
+
+void MATSetEventDate1(const char* dateMillis)
+{
+    MATSetEventDate1_platform(dateMillis);
+}
+
+void MATSetEventDate2(const char* dateMillis)
+{
+    MATSetEventDate2_platform(dateMillis);
+}
+
 void MATSetExistingUser(bool isExistingUser)
 {
     MATSetExistingUser_platform(isExistingUser);
+}
+
+void MATSetFacebookEventLogging(bool enable, bool limitUsage)
+{
+    MATSetFacebookEventLogging_platform(enable, limitUsage);
 }
 
 void MATSetPayingUser(bool isPayingUser)

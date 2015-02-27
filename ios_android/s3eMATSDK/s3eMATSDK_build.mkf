@@ -34,9 +34,6 @@ if {{defined I3D_OS_IPHONE}}
 
     files
     {
-        ["MobileAppTracking Library"]
-        (incoming)
-        "*.o"
         ["source"]
         (use_first_found, source/iphone, source/generic)
         s3eMATSDK_platform.mm

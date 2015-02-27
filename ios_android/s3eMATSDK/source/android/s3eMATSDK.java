@@ -13,20 +13,19 @@ import com.ideaworks3d.marmalade.LoaderAPI;
 
 import java.util.*;
 
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.mobileapptracker.MATEventItem;
 import com.mobileapptracker.MobileAppTracker;
-import android.util.Log;
 
 import android.R;
-import android.widget.Button;
-import android.widget.TextView;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.Gravity;
-import android.widget.LinearLayout;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 class s3eMATSDK
 {
@@ -66,11 +65,6 @@ class s3eMATSDK
         } else {
             mat.measureAction(eventIdOrName, items, Double.parseDouble(revenueAmount), currencyCode, refId);
         }
-    }
-    
-    public void MATStartAppToAppTracking(String targetAppId, String advertiserId, String offerId, String publisherId, boolean shouldRedirect)
-    {
-        mat.setTracking(advertiserId, targetAppId, publisherId, offerId, shouldRedirect);
     }
     
     public void MATSetPackageName(String packageName)
@@ -157,12 +151,57 @@ class s3eMATSDK
     {
         mat.setEventAttribute5(attr);
     }
-    
+
+    public void MATSetEventContentType(String contentType)
+    {
+        mat.setEventContentType(contentType);
+    }
+
+    public void MATSetEventContentId(String contentId)
+    {
+        mat.setEventContentId(contentId);
+    }
+
+    public void MATSetEventLevel(int level)
+    {
+        mat.setEventLevel(level);
+    }
+
+    public void MATSetEventQuantity(int quantity)
+    {
+        mat.setEventQuantity(quantity);
+    }
+
+    public void MATSetEventSearchString(String searchString)
+    {
+        mat.setEventSearchString(searchString);
+    }
+
+    public void MATSetEventRating(float rating)
+    {
+        mat.setEventRating(rating);
+    }
+
+    public void MATSetEventDate1(Date date)
+    {
+        mat.setEventDate1(date);
+    }
+
+    public void MATSetEventDate2(Date date)
+    {
+        mat.setEventDate2(date);
+    }
+
     public void MATSetExistingUser(boolean isExisting)
     {
         mat.setExistingUser(isExisting);
     }
-    
+
+    public void MATSetFacebookEventLogging(boolean enable)
+    {
+        mat.setFacebookEventLogging(LoaderAPI.getActivity(), enable);
+    }
+
     public void MATSetPayingUser(boolean isPaying)
     {
         mat.setIsPayingUser(isPaying);
@@ -211,6 +250,10 @@ class s3eMATSDK
         return mat.getOpenLogId();
     }
     
+    public String MATCheckForDeferredDeeplink(int timeout)
+    {
+        return mat.checkForDeferredDeeplink(timeout);
+    }
     
     public void MATSetAppAdTracking(boolean enable)
     {

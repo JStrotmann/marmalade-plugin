@@ -21,10 +21,19 @@ typedef struct MATArray {
     unsigned int m_count; // number of items
 } MATArray;
 
+typedef enum MATExtensionCallback
+{
+    MAT_CALLBACK_OPENURL,
+    MAT_CALLBACK_MAX
+} MATExtensionCallback;
+
 functions:
 
 // Main MAT Initializer Method
 void MATStartMobileAppTracker(const char* adId, const char* convKey) run_on_os_thread
+
+// Check for deferred deep-link on first app launch
+void MATCheckForDeferredDeeplink(const char* timeout, s3eCallback function) run_on_os_thread
 
 // Tracking Methods
 void MATMeasureSession() run_on_os_thread
@@ -53,7 +62,16 @@ void MATSetEventAttribute2(const char* attr) run_on_os_thread
 void MATSetEventAttribute3(const char* attr) run_on_os_thread
 void MATSetEventAttribute4(const char* attr) run_on_os_thread
 void MATSetEventAttribute5(const char* attr) run_on_os_thread
+void MATSetEventContentType(const char* contentType) run_on_os_thread
+void MATSetEventContentId(const char* contentId) run_on_os_thread
+void MATSetEventLevel(int level) run_on_os_thread
+void MATSetEventQuantity(int quantity) run_on_os_thread
+void MATSetEventSearchString(const char* searchString) run_on_os_thread
+void MATSetEventRating(const char * rating) run_on_os_thread
+void MATSetEventDate1(const char* date) run_on_os_thread
+void MATSetEventDate2(const char* date) run_on_os_thread
 void MATSetExistingUser(bool isExisting) run_on_os_thread
+void MATSetFacebookEventLogging(bool enable, bool limitUsage) run_on_os_thread
 void MATSetPayingUser(bool isPaying) run_on_os_thread
 void MATSetJailbroken(bool isJailbroken) run_on_os_thread
 void MATSetShouldAutoDetectJailbroken(bool shouldAutoDetect) run_on_os_thread

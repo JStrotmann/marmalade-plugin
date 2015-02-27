@@ -1,12 +1,15 @@
-#include "s3e.h"
-#include "s3eMATSDK.h"
+#include <memory.h>
+#include <stdio.h>
+#include <string.h>
+#include <sys/time.h>
+
+#include "ExamplesMain.h"
 #include "GAIDWrapper.h"
 #include "IFAWrapper.h"
-#include <memory.h>
-#include <string.h>
-#include <stdio.h>
-#include "ExamplesMain.h"
+#include "IwDebug.h"
+#include "s3e.h"
 #include "s3eDevice.h"
+#include "s3eMATSDK.h"
 
 //Simple structure to track touches
 struct CTouch
@@ -54,11 +57,29 @@ bool isPointInButton(s3ePointerEvent* event, Button* button)
     return true;
 }
 
+static int32 HandleMATOpenUrl(void *systemData, void *userData)
+{
+    const char *response = (const char *)systemData;
+    IwTrace(MATSDKSAMPLE_VERBOSE, ("HandleMATOpenUrl CALLBACK %s, %p", response , userData));
+    
+    return 0;
+}
+
+void checkDeferredDeeplink()
+{
+    char strTimeout[32];
+    sprintf(strTimeout, "%f", 750.0f); // 750ms
+    MATCheckForDeferredDeeplink(strTimeout, &HandleMATOpenUrl);
+}
+
 // GAID callback function, called by Marmalade when the GAID is received
 static int32 SetGAID(void *systemData, void *userData)
 {
     s3eGoogleAdvertisingIdInformation* adInfo = (s3eGoogleAdvertisingIdInformation*)systemData;
     MATSetGoogleAdvertisingId(adInfo->m_Gaid, adInfo->m_isLAT);
+    
+    checkDeferredDeeplink();
+    
     return 0;
 }
 
@@ -74,9 +95,20 @@ void SingleTouchButtonCB(s3ePointerEvent* event)
         MATStartMobileAppTracker("877", "8c14d6bbe466b65211e781d62e301eec");
         MATSetPackageName(g_package_name);
         MATSetSiteId(g_site_id);
-        MATSetAppleAdvertisingIdentifier(IFAGetAppleAdvertisingIdentifier(), IFAGetIsAdvertisingTrackingEnabled());
-
-        GAIDGetGoogleAdvertisingId(&SetGAID);
+        
+        int os = s3eDeviceGetInt(S3E_DEVICE_OS);
+        if (S3E_OS_ID_IPHONE == os)
+        {
+            MATSetAppleAdvertisingIdentifier(IFAGetAppleAdvertisingIdentifier(), IFAGetIsAdvertisingTrackingEnabled());
+            
+            checkDeferredDeeplink();
+        }
+        else if (S3E_OS_ID_ANDROID == os)
+        {
+            GAIDGetGoogleAdvertisingId(&SetGAID);
+        }
+        
+        MATSetFacebookEventLogging(true, false);
         
         sprintf(g_TouchEventMsg, "`x666666 Initialize MAT with %s, %s", g_package_name, g_site_id);
     }
@@ -186,7 +218,30 @@ void SingleTouchButtonCB(s3ePointerEvent* event)
         MATSetEventAttribute3("eventAttr3");
         MATSetEventAttribute4("eventAttr4");
         MATSetEventAttribute5("eventAttr5");
+        MATSetEventContentType("coins");
+        MATSetEventContentId("coin12345678");
+        MATSetEventLevel(5);
+        MATSetEventQuantity(7);
+        MATSetEventSearchString("searchString");
+
+        char strRating[32];
+        sprintf(strRating, "%f", 3.5f);
+        MATSetEventRating(strRating);
+        
+        struct timeval tv;
+        gettimeofday(&tv, NULL);
+        unsigned long long millisSinceEpoch = (unsigned long long)(tv.tv_sec) * 1000 + (unsigned long long)(tv.tv_usec) / 1000;
+
+        char millisDate1[256];
+        sprintf(millisDate1, "%llu", millisSinceEpoch);
+        MATSetEventDate1(millisDate1);
+        
+        char millisDate2[256];
+        sprintf(millisDate2, "%llu", millisSinceEpoch + 60 * 1000);
+        MATSetEventDate2(millisDate2);
+        
         MATSetExistingUser(false);
+        MATSetFacebookEventLogging(true, false);
         MATSetFacebookUserId("tempFacebookId");
         MATSetGender(1);
         MATSetGoogleUserId("tempGoogleId");
@@ -214,7 +269,6 @@ void SingleTouchButtonCB(s3ePointerEvent* event)
     }
 
 }
-
 
 void SingleTouchMotionCB(s3ePointerMotionEvent* event)
 {
@@ -251,9 +305,7 @@ void ExampleInit()
         strcpy(g_site_id, "6864");
     }
     SetButtonScale(2);
-    
 }
-
 
 //--------------------------------------------------------------------------
 void ExampleShutDown()
